@@ -40,7 +40,6 @@ public class Course {
     //TODO:Спросить про возможность выноса этого метода в абстрактный класс
     public Course(LinkedHashMap theme){
         Arrays.stream(this.getClass().getFields()).forEach( field -> {
-            System.out.println(field.getName());
             if(theme.containsKey(field.getName())){
                 try {
                     field.set(this, theme.get(field.getName()));

@@ -38,7 +38,6 @@ public class YamlDAO {
                                Map<Integer, Course> courseMap,
                                Map<Integer, Theme> themeMap) throws IOException {
         LinkedHashMap<String, Object> test = mapper.readValue(new File(path), new TypeReference<>() {} );
-        System.out.println("Success");
         try {
             // Заполнение мапы courseMap
             //TODO: Спросить можно ли сделать так, чтобы IDEA не ругалась на unchecked cast
