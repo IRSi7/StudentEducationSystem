@@ -1,0 +1,63 @@
+---
+courses:
+  - id : 1
+    themeIds:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+  - id: 2
+    themeIds:
+      - 9
+      - 8
+      - 7
+      - 6
+      - 5
+      - 4
+      - 3
+      - 2
+      - 1
+      - 0
+themes:
+  - id: 1
+    name: "Spring"
+    hours: 2
+  - id: 2
+    name: "Java"
+    hours: 3
+  - id: 3
+    name: "Kotlin"
+    hours: 1
+  - id: 4
+    name: "Maven"
+    hours: 3
+  - id: 5
+    name: "Gradle"
+    hours: 3
+  - id: 6
+    name: "Docker"
+    hours: 4
+  - id: 7
+    name: "KeyCloak"
+    hours: 2
+  - id: 8
+    name: "Jira"
+    hours: 1
+  - id: 9
+    name: "Confluence"
+    hours: 1
+  - id: 10
+    name: "Android"
+    hours: 4
+  - id: 11
+    name: "OpenSearch"
+    hours: 4
+  - id: 12
+    name: "YAML"
+    hours: 1
