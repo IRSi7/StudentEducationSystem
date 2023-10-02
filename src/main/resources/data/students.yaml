@@ -1,36 +1,36 @@
 - !!space.irsi7.models.Student
-  marks: [ 4, 5, 5]
   courseId: 1
   gpa: 5
   id: 1
+  marks: [4, 5, 5]
   name: Roman Ivanov
 - !!space.irsi7.models.Student
-  marks: [4, 5, 5, 5]
   courseId: 2
-  gpa: 5
+  gpa: 16
   id: 2
+  marks: [4, 5, 5, 5, 75, 2]
   name: Sasha Zaycev
 - !!space.irsi7.models.Student
-  marks: [80, 95, 75]
   courseId: 2
   gpa: 83
   id: 3
+  marks: [80, 95, 75]
   name: Vlad Neglad
 - !!space.irsi7.models.Student
-  marks: [40]
   courseId: 1
   gpa: 40
   id: 4
+  marks: [40]
   name: Stepan Smit
 - !!space.irsi7.models.Student
-  marks: []
   courseId: 1
   gpa: 0
   id: 5
+  marks: []
   name: John Smit
 - !!space.irsi7.models.Student
-  marks: [100, 90]
   courseId: 2
   gpa: 95
   id: 6
+  marks: [100, 90]
   name: Марк Заславский

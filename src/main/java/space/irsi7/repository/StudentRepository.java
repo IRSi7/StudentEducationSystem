@@ -1,7 +1,8 @@
 package space.irsi7.repository;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import space.irsi7.dao.YamlDAO;
-import space.irsi7.enums.LogsEnum;
 import space.irsi7.enums.PathsEnum;
 import space.irsi7.models.Student;
 
@@ -17,9 +18,17 @@ public class StudentRepository {
 
     YamlDAO yamlDAO;
 
-    public StudentRepository() throws IOException {
+    private static final Logger logger = LoggerFactory.getLogger(StudentRepository.class);
+
+    public StudentRepository() {
         this.yamlDAO = new YamlDAO();
-        students = yamlDAO.getStudentsMap(PathsEnum.STUDENTS.getPath());
+        try {
+            students = yamlDAO.getStudentsMap(PathsEnum.STUDENTS.getPath());
+            logger.info("Данные о студентах успешно считаны из students.yaml");
+        } catch (IOException e) {
+            logger.error("Ошибка при чтении данных из students.yaml");
+            throw new RuntimeException(e);
+        }
         nextId = students.keySet().stream().reduce(Integer::max).get() + 1;
     }
 
@@ -33,6 +42,7 @@ public class StudentRepository {
 
     public void saveNewStudent(String name, int course) {
         this.students.put(nextId, new Student(nextId, name, course));
+        logger.info("Студент успешно добавлен к списку");
         nextId++;
         notifyChanges();
     }
@@ -41,14 +51,16 @@ public class StudentRepository {
         if (mark > 0 && mark < 101) {
             students.get(studentId).getMarks().add(mark);
             students.get(studentId).recountGPA();
+            logger.info("Оценка за тест успешно добавлена");
             notifyChanges();
         } else {
-            System.out.println(LogsEnum.INSERT_FAIL.getMessage());
+            logger.error("Ошибка при добавлении оценки за тест");
         }
     }
 
     public void removeStudent(int id) {
         this.students.remove(id);
+        logger.info("Студент успешно отчислен)");
         notifyChanges();
     }
 
@@ -58,9 +70,9 @@ public class StudentRepository {
     private void notifyChanges() {
         try {
             yamlDAO.writeYAML(new ArrayList<>(students.values()), PathsEnum.STUDENTS.getPath());
-            System.out.println(LogsEnum.INSERT_SUCCESS.getMessage());
+            logger.info("Данные успешно записаны в students.yaml");
         } catch (IOException e) {
-            System.out.println(LogsEnum.INSERT_FAIL.getMessage());
+            logger.error("Ошибка записи данных в students.yaml");
         }
     }
 

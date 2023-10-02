@@ -1,10 +1,14 @@
 package space.irsi7.controllers;
 
+import org.yaml.snakeyaml.Yaml;
 import space.irsi7.enums.MenuEnum;
+import space.irsi7.models.Course;
+import space.irsi7.models.Theme;
 import space.irsi7.services.StudentService;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class StudController {
@@ -143,18 +147,15 @@ public class StudController {
     }
 
     public static void writeToTxt(ArrayList<String> strings){
-        try {
-            File file = new File("output.txt");
-            PrintStream stream = new PrintStream(file);
+        try(PrintStream stream = new PrintStream("output.txt")){
             System.setOut(stream);
             strings.forEach(System.out::println);
+        } catch (FileNotFoundException e) {
+            System.out.println("Файл для записи не найден. Вывод не был сохранён.");
+        } finally {
             PrintStream consoleStream = new PrintStream(
                     new FileOutputStream(FileDescriptor.out));
             System.setOut(consoleStream);
-            stream.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Файл для записи не найден");
-            //TODO: Какое исключение выбросить здесь?
         }
     }
 
