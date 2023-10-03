@@ -1,11 +1,144 @@
-17:17:15.622 [main] INFO  space.irsi7.Main - Приложение запущено
-17:17:15.986 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
-17:17:16.009 [main] INFO  space.irsi7.services.StudentService - Данные о темах и курсах успешно считаны из config.yaml
-17:17:32.274 [pool-1-thread-5] INFO  space.irsi7.services.StudentService - Поток сбора информации о студенте 5 успешно завершён
-17:17:32.274 [pool-1-thread-6] INFO  space.irsi7.services.StudentService - Поток сбора информации о студенте 6 успешно завершён
-17:17:32.274 [pool-1-thread-4] INFO  space.irsi7.services.StudentService - Поток сбора информации о студенте 4 успешно завершён
-17:17:32.274 [pool-1-thread-2] INFO  space.irsi7.services.StudentService - Поток сбора информации о студенте 2 успешно завершён
-17:17:32.274 [pool-1-thread-3] INFO  space.irsi7.services.StudentService - Поток сбора информации о студенте 3 успешно завершён
-17:17:32.274 [pool-1-thread-1] INFO  space.irsi7.services.StudentService - Поток сбора информации о студенте 1 успешно завершён
-17:17:32.278 [main] INFO  space.irsi7.services.StudentService - Формирование общего списка студентов успешно завершено
-17:17:32.287 [main] INFO  space.irsi7.Main - Приложение завершило работу
+13:12:29.265 [main] INFO  space.irsi7.Main - ���������� ��������
+13:12:29.398 [main] ERROR s.irsi7.repository.StudentRepository - ������ ��� ������ ������ �� students.yaml
+13:14:10.914 [main] INFO  space.irsi7.Main - Приложение запущено
+13:14:11.165 [main] ERROR s.irsi7.repository.StudentRepository - Ошибка при чтении данных из students.yaml
+13:15:31.853 [main] INFO  space.irsi7.Main - Приложение запущено
+13:15:32.150 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
+13:15:32.152 [main] ERROR space.irsi7.services.StudentServiceImpl - Ошибка при чтении файла config.yaml
+13:16:04.623 [main] INFO  space.irsi7.Main - Приложение запущено
+13:16:04.908 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
+13:16:04.925 [main] ERROR space.irsi7.services.StudentServiceImpl - Ошибка при чтении файла config.yaml
+13:17:12.458 [main] INFO  space.irsi7.Main - Приложение запущено
+13:17:12.753 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
+13:17:12.768 [main] ERROR space.irsi7.services.StudentServiceImpl - Ошибка при чтении файла config.yaml
+13:20:15.515 [main] INFO  space.irsi7.Main - Приложение запущено
+13:20:15.799 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
+13:20:15.815 [main] ERROR space.irsi7.services.StudentServiceImpl - Ошибка при чтении файла config.yaml
+13:20:19.380 [main] INFO  space.irsi7.Main - Приложение запущено
+13:20:19.717 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
+13:20:19.734 [main] ERROR space.irsi7.services.StudentServiceImpl - Ошибка при чтении файла config.yaml
+13:20:28.254 [main] INFO  space.irsi7.Main - Приложение запущено
+13:20:28.622 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
+13:24:48.909 [main] ERROR space.irsi7.services.StudentServiceImpl - Ошибка при чтении файла config.yaml
+13:24:54.101 [main] INFO  space.irsi7.Main - Приложение запущено
+13:25:20.989 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
+13:25:28.329 [main] ERROR space.irsi7.services.StudentServiceImpl - Ошибка при чтении файла config.yaml
+13:26:29.084 [main] INFO  space.irsi7.Main - Приложение запущено
+13:26:33.728 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
+13:26:37.372 [main] ERROR space.irsi7.services.StudentServiceImpl - Ошибка при чтении файла config.yaml
+13:30:11.733 [main] INFO  space.irsi7.Main - Приложение запущено
+13:30:16.035 [main] ERROR s.irsi7.repository.StudentRepository - Ошибка при чтении данных из students.yaml
+13:31:05.426 [main] INFO  space.irsi7.Main - Приложение запущено
+13:31:13.076 [main] ERROR s.irsi7.repository.StudentRepository - Ошибка при чтении данных из students.yaml
+13:33:24.953 [main] INFO  space.irsi7.Main - Приложение запущено
+13:33:30.280 [main] ERROR s.irsi7.repository.StudentRepository - Ошибка при чтении данных из students.yaml
+13:34:53.101 [main] INFO  space.irsi7.Main - Приложение запущено
+13:34:57.276 [main] ERROR s.irsi7.repository.StudentRepository - Ошибка при чтении данных из students.yaml
+13:35:35.854 [main] INFO  space.irsi7.Main - Приложение запущено
+13:35:39.877 [main] ERROR s.irsi7.repository.StudentRepository - Ошибка при чтении данных из students.yaml
+13:35:43.635 [main] INFO  space.irsi7.Main - Приложение запущено
+13:40:20.620 [main] INFO  space.irsi7.Main - Приложение запущено
+13:42:27.061 [main] ERROR s.irsi7.repository.StudentRepository - Ошибка при чтении данных из students.yaml
+13:48:28.309 [main] INFO  space.irsi7.Main - Приложение запущено
+13:48:32.120 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
+13:49:36.858 [main] INFO  space.irsi7.Main - Приложение запущено
+13:52:40.711 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
+13:53:32.449 [main] INFO  space.irsi7.Main - Приложение запущено
+13:53:37.171 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
+13:53:53.421 [main] INFO  space.irsi7.Main - Приложение запущено
+13:55:37.160 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
+13:57:19.854 [main] INFO  space.irsi7.Main - Приложение запущено
+13:57:32.646 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
+13:58:08.821 [main] INFO  space.irsi7.Main - Приложение запущено
+13:58:09.081 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
+13:58:09.083 [main] ERROR space.irsi7.services.StudentServiceImpl - Ошибка при чтении файла config.yaml
+13:58:35.847 [main] INFO  space.irsi7.Main - Приложение запущено
+13:58:36.116 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
+13:58:36.123 [main] INFO  space.irsi7.services.StudentServiceImpl - Данные о темах и курсах успешно считаны из config.yaml
+13:59:08.780 [main] INFO  space.irsi7.Main - ���������� ��������
+13:59:08.960 [main] INFO  s.irsi7.repository.StudentRepository - ������ � ��������� ������� ������� �� students.yaml
+13:59:08.966 [main] INFO  space.irsi7.services.StudentServiceImpl - ������ � ����� � ������ ������� ������� �� config.yaml
+13:59:23.572 [pool-1-thread-5] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 5 ������� ��������
+13:59:23.572 [pool-1-thread-6] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 6 ������� ��������
+13:59:23.572 [pool-1-thread-1] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 1 ������� ��������
+13:59:23.572 [pool-1-thread-3] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 3 ������� ��������
+13:59:23.572 [pool-1-thread-4] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 4 ������� ��������
+13:59:23.572 [pool-1-thread-2] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 2 ������� ��������
+13:59:23.574 [main] INFO  space.irsi7.services.StudentServiceImpl - ������������ ������ ������ ��������� ������� ���������
+13:59:50.613 [pool-2-thread-2] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 2 ������� ��������
+13:59:50.613 [pool-2-thread-6] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 6 ������� ��������
+13:59:50.613 [pool-2-thread-4] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 4 ������� ��������
+13:59:50.613 [pool-2-thread-1] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 1 ������� ��������
+13:59:50.613 [pool-2-thread-3] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 3 ������� ��������
+13:59:50.613 [pool-2-thread-5] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 5 ������� ��������
+13:59:50.614 [main] INFO  space.irsi7.services.StudentServiceImpl - ������������ ������ ������ ��������� ������� ���������
+14:00:01.068 [main] INFO  space.irsi7.Main - ���������� ��������� ������
+14:10:06.751 [main] INFO  space.irsi7.Main - ���������� ��������
+14:10:06.925 [main] INFO  s.irsi7.repository.StudentRepository - ������ � ��������� ������� ������� �� students.yaml
+14:10:06.932 [main] INFO  space.irsi7.services.StudentServiceImpl - ������ � ����� � ������ ������� ������� �� config.yaml
+14:10:49.225 [main] INFO  s.irsi7.repository.StudentRepository - ������� ������� �������� � ������
+14:10:49.253 [main] INFO  s.irsi7.repository.StudentRepository - ������ ������� �������� � students.yaml
+14:11:10.099 [pool-1-thread-4] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 4 ������� ��������
+14:11:10.099 [pool-1-thread-5] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 5 ������� ��������
+14:11:10.099 [pool-1-thread-6] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 6 ������� ��������
+14:11:10.099 [pool-1-thread-7] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 7 ������� ��������
+14:11:10.099 [pool-1-thread-1] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 1 ������� ��������
+14:11:10.099 [pool-1-thread-3] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 3 ������� ��������
+14:11:10.099 [pool-1-thread-2] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 2 ������� ��������
+14:11:10.102 [main] INFO  space.irsi7.services.StudentServiceImpl - ������������ ������ ������ ��������� ������� ���������
+14:26:31.011 [main] INFO  space.irsi7.Main - ���������� ��������� ������
+14:28:36.286 [main] INFO  space.irsi7.Main - Приложение запущено
+14:28:36.612 [main] ERROR s.irsi7.repository.StudentRepository - Ошибка при чтении данных из students.yaml
+14:30:07.854 [main] INFO  space.irsi7.Main - Приложение запущено
+14:30:08.194 [main] ERROR s.irsi7.repository.StudentRepository - Ошибка при чтении данных из students.yaml
+14:31:51.397 [main] INFO  space.irsi7.Main - Приложение запущено
+14:31:51.706 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
+14:31:51.716 [main] INFO  space.irsi7.services.StudentServiceImpl - Данные о темах и курсах успешно считаны из config.yaml
+14:34:42.650 [main] INFO  s.irsi7.repository.StudentRepository - Оценка за тест успешно добавлена
+14:34:42.675 [main] INFO  s.irsi7.repository.StudentRepository - Данные успешно записаны в students.yaml
+14:34:48.756 [main] INFO  space.irsi7.Main - Приложение завершило работу
+14:35:17.260 [main] INFO  space.irsi7.Main - Приложение запущено
+14:35:17.564 [main] ERROR s.irsi7.repository.StudentRepository - Ошибка при чтении данных из students.yaml
+14:35:53.085 [main] INFO  space.irsi7.Main - Приложение запущено
+14:35:53.418 [main] ERROR s.irsi7.repository.StudentRepository - Ошибка при чтении данных из students.yaml
+14:36:27.515 [main] INFO  space.irsi7.Main - Приложение запущено
+14:37:59.107 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
+14:38:00.881 [main] INFO  space.irsi7.Main - Приложение запущено
+14:38:01.159 [main] INFO  s.irsi7.repository.StudentRepository - Данные о студентах успешно считаны из students.yaml
+14:38:01.168 [main] INFO  space.irsi7.services.StudentServiceImpl - Данные о темах и курсах успешно считаны из config.yaml
+15:10:30.925 [main] INFO  space.irsi7.Main - ���������� ��������
+15:10:31.098 [main] INFO  s.irsi7.repository.StudentRepository - ������ � ��������� ������� ������� �� students.yaml
+15:10:31.106 [main] INFO  space.irsi7.services.StudentServiceImpl - ������ � ����� � ������ ������� ������� �� config.yaml
+15:10:52.952 [pool-1-thread-5] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 5 ������� ��������
+15:10:52.952 [pool-1-thread-7] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 7 ������� ��������
+15:10:52.952 [pool-1-thread-6] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 6 ������� ��������
+15:10:52.952 [pool-1-thread-3] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 3 ������� ��������
+15:10:52.952 [pool-1-thread-4] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 4 ������� ��������
+15:10:52.952 [pool-1-thread-2] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 2 ������� ��������
+15:10:52.952 [pool-1-thread-1] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 1 ������� ��������
+15:10:52.955 [main] INFO  space.irsi7.services.StudentServiceImpl - ������������ ������ ������ ��������� ������� ���������
+15:11:14.875 [pool-2-thread-7] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 7 ������� ��������
+15:11:14.875 [pool-2-thread-3] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 3 ������� ��������
+15:11:14.875 [pool-2-thread-2] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 2 ������� ��������
+15:11:14.875 [pool-2-thread-5] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 5 ������� ��������
+15:11:14.875 [pool-2-thread-1] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 1 ������� ��������
+15:11:14.875 [pool-2-thread-4] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 4 ������� ��������
+15:11:14.875 [pool-2-thread-6] INFO  space.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 6 ������� ��������
+15:11:14.877 [main] INFO  space.irsi7.services.StudentServiceImpl - ������������ ������ ������ ��������� ������� ���������
+15:11:19.689 [main] INFO  space.irsi7.Main - ���������� ��������� ������
+16:07:55.579 [main] INFO  space.irsi7.Main - ���������� ��������
+16:07:55.756 [main] INFO  s.i.repository.StudentRepositoryImpl - ������ � ��������� ������� ������� �� students.yaml
+16:07:55.763 [main] INFO  s.irsi7.services.StudentServiceImpl - ������ � ����� � ������ ������� ������� �� config.yaml
+16:08:11.249 [pool-1-thread-4] INFO  s.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 4 ������� ��������
+16:08:11.249 [pool-1-thread-7] INFO  s.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 7 ������� ��������
+16:08:11.249 [pool-1-thread-6] INFO  s.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 6 ������� ��������
+16:08:11.249 [pool-1-thread-5] INFO  s.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 5 ������� ��������
+16:08:11.249 [pool-1-thread-3] INFO  s.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 3 ������� ��������
+16:08:11.249 [pool-1-thread-2] INFO  s.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 2 ������� ��������
+16:08:11.248 [pool-1-thread-1] INFO  s.irsi7.services.StudentServiceImpl - ����� ����� ���������� � �������� 1 ������� ��������
+16:08:11.252 [main] INFO  s.irsi7.services.StudentServiceImpl - ������������ ������ ������ ��������� ������� ���������
+16:08:18.508 [main] INFO  space.irsi7.Main - ���������� ��������� ������
+16:09:39.867 [main] INFO  space.irsi7.Main - ���������� ��������
+16:09:40.037 [main] INFO  s.i.repository.StudentRepositoryImpl - ������ � ��������� ������� ������� �� students.yaml
+16:09:40.044 [main] INFO  s.irsi7.services.StudentServiceImpl - ������ � ����� � ������ ������� ������� �� config.yaml
+16:09:54.735 [main] INFO  space.irsi7.Main - ���������� ��������� ������
