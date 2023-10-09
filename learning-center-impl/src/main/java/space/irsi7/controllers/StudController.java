@@ -5,22 +5,30 @@ import space.irsi7.services.StudentServiceImpl;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class StudController {
 
-    static StudentServiceImpl studentServiceImpl;
-
     //TODO: Выбрасывать свой Exception возможно унаследованный от RunTimeException
+    static StudentServiceImpl studentServiceImpl;
+    static Scanner in;
+    static MultipleChoiceMenu multipleChoiceMenu;
+
     static {
+        in = new Scanner(System.in);
         studentServiceImpl = new StudentServiceImpl();
     }
 
-    static Scanner in = new Scanner(System.in);
+//    public StudController(StudentServiceImpl service, Scanner scanner, MultipleChoiceMenu menu){
+//        studentServiceImpl = service;
+//        in = scanner;
+//        multipleChoiceMenu = menu;
+//    }
 
     public static boolean start() {
 
-        MultipleChoiceMenu multipleChoiceMenu = new MultipleChoiceMenu(new MenuEnum[]{
+        multipleChoiceMenu = new MultipleChoiceMenu(new MenuEnum[]{
                 MenuEnum.MAIN_ADD, MenuEnum.MAIN_REMOVE, MenuEnum.MAIN_RATE, MenuEnum.MAIN_TIME_LEFT,
                 MenuEnum.MAIN_DROP_CHANCE, MenuEnum.MAIN_REPORT_ONE, MenuEnum.MAIN_REPORT_ALL
         });
@@ -142,7 +150,7 @@ public class StudController {
         return studentId;
     }
 
-    public static void writeToTxt(ArrayList<String> strings){
+    public static void writeToTxt(List<String> strings){
         try(PrintStream stream = new PrintStream("output.txt")){
             System.setOut(stream);
             strings.forEach(System.out::println);
@@ -154,33 +162,4 @@ public class StudController {
             System.setOut(consoleStream);
         }
     }
-
-//    public static void initTest () {
-//
-//        ArrayList<Course> courses = new ArrayList<>(){{
-//            add(new Course(1, new ArrayList<>(List.of(1, 2, 3 , 4, 5, 6, 7, 8, 9, 10))));
-//            add(new Course(2, new ArrayList<>(List.of(10, 9, 8 , 7, 6, 5, 4, 3, 2, 1))));
-//        }};
-//        ArrayList<Theme> themes = new ArrayList<>(){{
-//            add(new Theme(1, "Spring", 2));
-//            add(new Theme(2, "Java", 3));
-//            add(new Theme(3, "Kotlin", 1));
-//            add(new Theme(4, "Maven", 4));
-//            add(new Theme(5, "Gradle", 3));
-//            add(new Theme(6, "Docker", 4));
-//            add(new Theme(7, "KeyCloak", 2));
-//            add(new Theme(8, "Jira", 1));
-//            add(new Theme(9, "Confluence", 1));
-//            add(new Theme(10, "Android", 4));
-//            add(new Theme(11, "OpenSearch", 4));
-//            add(new Theme(12, "Spring", 1));
-//
-//        }};
-//
-//        Config config = new Config(courses, themes);
-//
-//        Yaml yaml = new Yaml();
-//        StringWriter writer = new StringWriter();
-//        yaml.dump(config, writer);
-//    }
 }

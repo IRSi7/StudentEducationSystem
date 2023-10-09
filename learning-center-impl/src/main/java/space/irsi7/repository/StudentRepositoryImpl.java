@@ -3,6 +3,7 @@ package space.irsi7.repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import space.irsi7.dao.YamlDaoImpl;
+import space.irsi7.enums.MenuEnum;
 import space.irsi7.enums.PathsEnum;
 import space.irsi7.interfaces.StudentRepository;
 import space.irsi7.models.Student;
@@ -33,6 +34,11 @@ public class StudentRepositoryImpl implements StudentRepository {
         nextId = students.keySet().stream().reduce(Integer::max).get() + 1;
     }
 
+    public StudentRepositoryImpl(Map<Integer, Student> students, YamlDaoImpl yamlDaoImpl) {
+        this.students = students;
+        this.yamlDaoImpl = yamlDaoImpl;
+    }
+
     public Map<Integer, Student> getStudents() {
         return students;
     }
@@ -41,7 +47,11 @@ public class StudentRepositoryImpl implements StudentRepository {
         return students.get(id);
     }
 
-    public void saveNewStudent(String name, int course) {
+    public int getNextId() {
+        return nextId;
+    }
+
+    public void addStudent(String name, int course) {
         this.students.put(nextId, new Student(nextId, name, course));
         logger.info("Студент успешно добавлен к списку");
         nextId++;
@@ -67,6 +77,34 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     public boolean containsStudent(int id){
         return students.containsKey(id);
+    }
+    public ArrayList<Student> getStudentSample(int sort, int filter){
+        return new ArrayList<>(students.values().stream()
+                .filter( s -> {
+                    if(filter == MenuEnum.FILTER_LOW.ordinal()){
+                        return s.getGpa() < 75;
+                    }
+                    if(filter == MenuEnum.FILTER_HIGH.ordinal()){
+                        return s.getGpa() >= 75;
+                    }
+                    return true;
+                })
+                .sorted((Student s, Student s1) -> {
+                    if(sort == MenuEnum.SORT_ID.ordinal()){
+                        return Integer.compare(s.getId(), s1.getId());
+                    }
+                    if(sort == MenuEnum.SORT_NAME.ordinal()){
+                        return s.getName().compareTo(s1.getName());
+                    }
+                    if(sort == MenuEnum.SORT_TESTS_PASSED.ordinal()){
+                        return Integer.compare(s.getMarks().size(), s1.getMarks().size());
+                    }
+                    if(sort == MenuEnum.SORT_GPA.ordinal()){
+                        return Integer.compare(s.getGpa(), s1.getGpa());
+                    }
+                    return 0;
+                })
+                .toList());
     }
     private void notifyChanges() {
         try {

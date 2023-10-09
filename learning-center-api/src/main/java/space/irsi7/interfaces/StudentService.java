@@ -1,6 +1,6 @@
 package space.irsi7.interfaces;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface StudentService {
 
@@ -10,7 +10,7 @@ public interface StudentService {
     int getEduTimeLeft(int studentId);
     String getReportStudent(int studId);
     Boolean getDropChance(int studId);
-    ArrayList<String> getAllReport(int sort, int order, int filter);
+    List<String> getAllReport(int sort, int order, int filter);
     int getGPA(int studId);
 
 }

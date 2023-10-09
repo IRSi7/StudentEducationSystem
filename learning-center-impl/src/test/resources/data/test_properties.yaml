@@ -1,0 +1,11 @@
+---
+courses:
+  - id : 0
+    themeIds:
+      - 0
+      - 0
+      - 0
+themes:
+  - id: 0
+    name: "Test"
+    hours: 0

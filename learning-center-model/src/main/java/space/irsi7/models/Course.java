@@ -15,4 +15,12 @@ public class Course extends Readable {
     public Course(Map<?, ?> course){
         super(course);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return id == course.id && themeIds.equals(course.themeIds);
+    }
 }

@@ -1,16 +1,12 @@
-16:13:18.409 [main] INFO  space.irsi7.Main - ���������� ��������
-16:13:18.584 [main] INFO  s.i.repository.StudentRepositoryImpl - ������ � ��������� ������� ������� �� students.yaml
-16:13:18.592 [main] INFO  s.irsi7.services.StudentServiceImpl - ������ � ����� � ������ ������� ������� �� config.yaml
-16:13:49.249 [main] INFO  space.irsi7.Main - ���������� ��������
-16:13:49.418 [main] INFO  s.i.repository.StudentRepositoryImpl - ������ � ��������� ������� ������� �� students.yaml
-16:13:49.425 [main] INFO  s.irsi7.services.StudentServiceImpl - ������ � ����� � ������ ������� ������� �� config.yaml
-16:14:07.353 [main] INFO  space.irsi7.Main - ���������� ��������� ������
-16:15:01.946 [main] INFO  space.irsi7.Main - ���������� ��������
-16:15:02.119 [main] INFO  s.i.repository.StudentRepositoryImpl - ������ � ��������� ������� ������� �� students.yaml
-16:15:02.127 [main] INFO  s.irsi7.services.StudentServiceImpl - ������ � ����� � ������ ������� ������� �� config.yaml
-16:15:28.443 [main] INFO  space.irsi7.Main - Приложение запущено
-16:15:28.821 [main] INFO  s.i.repository.StudentRepositoryImpl - Данные о студентах успешно считаны из students.yaml
-16:15:28.834 [main] INFO  s.irsi7.services.StudentServiceImpl - Данные о темах и курсах успешно считаны из config.yaml
-16:16:23.158 [main] INFO  space.irsi7.Main - Приложение запущено
-16:16:35.782 [main] INFO  s.i.repository.StudentRepositoryImpl - Данные о студентах успешно считаны из students.yaml
-16:16:42.244 [main] INFO  s.irsi7.services.StudentServiceImpl - Данные о темах и курсах успешно считаны из config.yaml
+17:18:52.671 [main] INFO  space.irsi7.Main - Приложение запущено
+17:18:53.075 [main] INFO  s.i.repository.StudentRepositoryImpl - Данные о студентах успешно считаны из students.yaml
+17:18:53.097 [main] INFO  s.irsi7.services.StudentServiceImpl - Данные о темах и курсах успешно считаны из config.yaml
+17:19:05.670 [pool-2-thread-4] INFO  s.irsi7.services.StudentServiceImpl - Поток сбора информации о студенте 4 успешно завершён
+17:19:05.670 [pool-2-thread-2] INFO  s.irsi7.services.StudentServiceImpl - Поток сбора информации о студенте 2 успешно завершён
+17:19:05.670 [pool-2-thread-3] INFO  s.irsi7.services.StudentServiceImpl - Поток сбора информации о студенте 3 успешно завершён
+17:19:05.670 [pool-2-thread-1] INFO  s.irsi7.services.StudentServiceImpl - Поток сбора информации о студенте 1 успешно завершён
+17:19:05.670 [pool-2-thread-5] INFO  s.irsi7.services.StudentServiceImpl - Поток сбора информации о студенте 5 успешно завершён
+17:19:05.670 [pool-2-thread-7] INFO  s.irsi7.services.StudentServiceImpl - Поток сбора информации о студенте 7 успешно завершён
+17:19:05.670 [pool-2-thread-6] INFO  s.irsi7.services.StudentServiceImpl - Поток сбора информации о студенте 6 успешно завершён
+17:19:05.674 [main] INFO  s.irsi7.services.StudentServiceImpl - Формирование общего списка студентов успешно завершено
+17:19:06.712 [main] INFO  space.irsi7.Main - Приложение завершило работу

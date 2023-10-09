@@ -2,6 +2,7 @@ package space.irsi7.models;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 import static java.lang.Math.round;
 
@@ -9,6 +10,7 @@ public class Student extends Readable{
 
     //TODO: Спросить про int и Integer (Нужно ли стараться применять Integer)
     public int id;
+
     public String name;
     public int courseId;
     public ArrayList<Integer> marks;
@@ -54,8 +56,9 @@ public class Student extends Readable{
         this.gpa = gpa;
     }
 
-    public Student(String name, int courseId, ArrayList<Integer> marks, int gpa) {
+    public Student(int id, String name, int courseId, ArrayList<Integer> marks, int gpa) {
 
+        this.id = id;
         this.name = name;
         this.courseId = courseId;
         this.marks = marks;
@@ -89,6 +92,14 @@ public class Student extends Readable{
                 + " | Средний балл : " + gpa
                 + " | Оценка успеваемости : "
                 + ((gpa >= 75) ? "Низкая вероятность быть отчисленным" : "Высокая вероятность быть отчисленным");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return id == student.id && courseId == student.courseId && gpa == student.gpa && name.equals(student.name) && marks.equals(student.marks);
     }
 
     public void recountGPA() {

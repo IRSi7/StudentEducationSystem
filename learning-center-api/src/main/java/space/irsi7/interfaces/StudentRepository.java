@@ -2,6 +2,7 @@ package space.irsi7.interfaces;
 
 import space.irsi7.models.Student;
 
+import java.util.List;
 import java.util.Map;
 
 public interface StudentRepository {
@@ -10,12 +11,14 @@ public interface StudentRepository {
 
     Student getStudent(int id);
 
-    void saveNewStudent(String name, int course);
+    void addStudent(String name, int course);
 
     void rateStudent(int studentId, int mark);
 
     void removeStudent(int id);
 
     boolean containsStudent(int id);
+
+    List<Student> getStudentSample(int sort, int filter);
 
 }

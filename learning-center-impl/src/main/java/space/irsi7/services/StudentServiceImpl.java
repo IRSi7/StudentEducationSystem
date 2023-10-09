@@ -14,19 +14,17 @@ import space.irsi7.repository.StudentRepositoryImpl;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.*;
 import java.util.stream.IntStream;
 
 public class StudentServiceImpl implements StudentService {
 
-    final StudentRepositoryImpl studentRepositoryImpl;
+    final StudentRepositoryImpl studentRepository;
     final Map<Integer, Course> courses;
     final Map<Integer, Theme> themes;
-
     private static final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
 
     public StudentServiceImpl() throws IllegalInitialDataException {
-        studentRepositoryImpl = new StudentRepositoryImpl();
+        studentRepository = new StudentRepositoryImpl();
         try {
             var yamlDAO = new YamlDaoImpl();
             themes = new HashMap<>();
@@ -40,20 +38,27 @@ public class StudentServiceImpl implements StudentService {
         }
     }
 
+    //TODO: Конструктор добавленный для тестирования... Нужно ли тестировать его ...
+    public StudentServiceImpl(StudentRepositoryImpl studentRepository, Map<Integer, Course> courses, Map<Integer, Theme> themes) {
+        this.studentRepository = studentRepository;
+        this.courses = courses;
+        this.themes = themes;
+    }
+
     public void addStudent(String name, int course) {
-        studentRepositoryImpl.saveNewStudent(name, course);
+        studentRepository.addStudent(name, course);
     }
 
     public void removeStudent(int id) {
-        studentRepositoryImpl.removeStudent(id);
+        studentRepository.removeStudent(id);
     }
 
     public void rateStudent(int studentId, int mark) {
-        studentRepositoryImpl.rateStudent(studentId, mark);
+        studentRepository.rateStudent(studentId, mark);
     }
 
     public int getEduTimeLeft(int studentId) {
-        Student curStudent = studentRepositoryImpl.getStudent(studentId);
+        Student curStudent = studentRepository.getStudent(studentId);
         int passed = curStudent.getMarks().size();
         int all = courses.get(curStudent.getCourseId()).themeIds.size();
         return (all - passed);
@@ -61,7 +66,7 @@ public class StudentServiceImpl implements StudentService {
 
     public String getReportStudent(int studId) {
 
-        Student curStudent = studentRepositoryImpl.getStudent(studId);
+        Student curStudent = studentRepository.getStudent(studId);
         StringBuilder answer = new StringBuilder("---------------------------------------------\n");
         answer.append("Студент: ")
                 .append(curStudent.getName())
@@ -72,9 +77,9 @@ public class StudentServiceImpl implements StudentService {
                 .forEach(i -> answer.append("\t").append(i + 1)
                         .append(". | Тема: ")
                         .append(themes.get(courses.get(curStudent.getCourseId())
-                                .themeIds.get(i + 1)).name)
+                                .themeIds.get(i)).name)
                         .append(" | Оценка: ")
-                        .append(studentRepositoryImpl.getStudent(studId).getMarks().get(i))
+                        .append(studentRepository.getStudent(studId).getMarks().get(i))
                         .append(" |\n"));
         answer.append("Средний балл: ").append(getGPA(studId)).append("\n");
         answer.append(("---------------------------------------------"));
@@ -82,78 +87,23 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public Boolean getDropChance(int studId) {
-        return studentRepositoryImpl.getStudent(studId).getGpa() >= 75;
+        return studentRepository.getStudent(studId).getGpa() >= 75;
     }
 
-    public ArrayList<String> getAllReport(int sort, int order, int filter) {
-        try {
-            CopyOnWriteArrayList<Student> sortedStudents = new CopyOnWriteArrayList<>();
-            ArrayList<String> answer = new ArrayList<>();
-
-            ExecutorService service = Executors.newFixedThreadPool(studentRepositoryImpl.getStudents().size());
-
-            studentRepositoryImpl.getStudents().values().stream()
-                    .filter(s -> {
-                        if (filter == MenuEnum.FILTER_LOW.ordinal()) {
-                            return s.getGpa() < 75;
-                        }
-                        if (filter == MenuEnum.FILTER_HIGH.ordinal()) {
-                            return s.getGpa() >= 75;
-                        }
-                        return true;
-                    })
-                    .forEach(s -> service.submit(() -> {
-                        try {
-                            Thread.sleep(3000);
-                            sortedStudents.add(s);
-                            logger.info("Поток сбора информации о студенте {} успешно завершён", s.getId());
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }));
-
-            service.shutdown();
-
-            boolean done = service.awaitTermination(1, TimeUnit.MINUTES);
-            logger.info("Формирование общего списка студентов успешно завершено");
-            sortedStudents.stream()
-                    .sorted((Student s, Student s1) -> {
-                        if (sort == MenuEnum.SORT_ID.ordinal()) {
-                            return Integer.compare(s.getId(), s1.getId());
-                        }
-                        if (sort == MenuEnum.SORT_NAME.ordinal()) {
-                            return s.getName().compareTo(s1.getName());
-                        }
-                        if (sort == MenuEnum.SORT_TESTS_PASSED.ordinal()) {
-                            return Integer.compare(s.getMarks().size(), s1.getMarks().size());
-                        }
-                        if (sort == MenuEnum.SORT_GPA.ordinal()) {
-                            return Integer.compare(s.getGpa(), s1.getGpa());
-                        }
-                        return 0;
-                    })
-                    .forEach(s -> answer.add(s.toString()));
-
-            if (order == MenuEnum.ORDER_REVERSED.ordinal()) {
-                Collections.reverse(answer);
-            }
-
-            return answer;
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+    public List<String> getAllReport(int sort, int order, int filter) {
+        List<String> answer = new ArrayList<>();
+        studentRepository.getStudentSample(sort, filter) .forEach(s -> answer.add(s.toString()));
+        if (order == MenuEnum.ORDER_REVERSED.ordinal()) {
+            Collections.reverse(answer);
         }
+        return answer;
     }
 
     public boolean validateId(int id) {
-        if (studentRepositoryImpl.containsStudent(id)) {
-            return true;
-        } else {
-            System.out.println("Студента с таким ID не существует");
-            return false;
-        }
+        return  studentRepository.containsStudent(id);
     }
 
     public int getGPA(int studId) {
-        return studentRepositoryImpl.getStudent(studId).getGpa();
+        return studentRepository.getStudent(studId).getGpa();
     }
 }

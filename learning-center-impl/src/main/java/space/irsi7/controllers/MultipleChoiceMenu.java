@@ -8,10 +8,11 @@ public class MultipleChoiceMenu {
 
 
     private final MenuEnum[] listChoice;
-    MultipleChoiceMenu(MenuEnum[] list){
+    public MultipleChoiceMenu(MenuEnum[] list){
         this.listChoice = list;
     }
 
+    //TODO: Этот метод не нужно тестировать?
     public int chooseOne() {
         int chosen = -1;
         while(chosen == -1){
