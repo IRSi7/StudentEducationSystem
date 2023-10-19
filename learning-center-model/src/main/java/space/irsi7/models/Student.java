@@ -1,18 +1,19 @@
 package space.irsi7.models;
 
+import space.irsi7.annotations.InjectRandomMarks;
+
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Objects;
 
 import static java.lang.Math.round;
 
 public class Student extends Readable{
 
-    //TODO: Спросить про int и Integer (Нужно ли стараться применять Integer)
     public int id;
 
     public String name;
     public int courseId;
+    @InjectRandomMarks(min = 20, max = 80, amount = 6)
     public ArrayList<Integer> marks;
     public int gpa;
 
@@ -87,11 +88,12 @@ public class Student extends Readable{
 
     @Override
     public String toString() {
-        return " ID : " + id + " | Студент : " + name
-                + " | Кол-во сданных тестов : " + marks.size()
-                + " | Средний балл : " + gpa
-                + " | Оценка успеваемости : "
-                + ((gpa >= 75) ? "Низкая вероятность быть отчисленным" : "Высокая вероятность быть отчисленным");
+        return " ID : " + id + " | Student : " + name
+                + " | Test passed : " + marks.size()
+                + " | GPA : " + gpa
+                + " | Acceptable : "
+                + ((gpa >= 75) ? "Low probability to be expelled" : "High probability to be expelled")
+                + "\n";
     }
 
     @Override

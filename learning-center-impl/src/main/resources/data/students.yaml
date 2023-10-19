@@ -40,3 +40,15 @@
   id: 7
   marks: []
   name: Emily Smith
+- !!space.irsi7.models.Student
+  courseId: 0
+  gpa: 100
+  id: 8
+  marks: [100]
+  name: Test
+- !!space.irsi7.models.Student
+  courseId: 0
+  gpa: 100
+  id: 9
+  marks: [100]
+  name: Test

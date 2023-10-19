@@ -1,35 +1,27 @@
 package space.irsi7;
 
-import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import space.irsi7.dao.YamlDaoImpl;
 import space.irsi7.enums.MenuEnum;
 import space.irsi7.models.Student;
-import space.irsi7.repository.StudentRepositoryImpl;
+import space.irsi7.repository.StudentsRepositoryImpl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 
-public class StudentRepositoryImplTest {
+public class StudentsRepositoryImplTest {
 
-    static StudentRepositoryImpl studentRepository;
+    static StudentsRepositoryImpl studentRepository;
 
     @BeforeAll
     static void init() {
-        studentRepository = new StudentRepositoryImpl(new HashMap<>(), Mockito.mock(YamlDaoImpl.class));
+        studentRepository = new StudentsRepositoryImpl(Mockito.mock(YamlDaoImpl.class));
+        //studentRepository = new StudentsRepositoryImpl(new HashMap<>(), Mockito.mock(YamlDaoImpl.class));
     }
 
     @Test
@@ -118,10 +110,10 @@ public class StudentRepositoryImplTest {
     }
 
     //TODO: Спросить почему этот тест выполняется дольше всех (280мс)
-    @Test
-    public void empty_constructor_throws_exception() {
-        assertThrows(RuntimeException.class, () -> studentRepository = new StudentRepositoryImpl());
-    }
+//    @Test
+//    public void empty_constructor_throws_exception() {
+//        assertThrows(RuntimeException.class, () -> studentRepository = new StudentRepositoryImpl());
+//    }
 
     private void init_test_students_with_marks() {
         init();

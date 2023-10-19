@@ -1,11 +1,10 @@
-package space.irsi7.interfaces;
+package space.irsi7.interfaces.Repositories;
 
 import space.irsi7.models.Student;
-
 import java.util.List;
 import java.util.Map;
 
-public interface StudentRepository {
+public interface StudentsRepository {
 
     Map<Integer, Student> getStudents();
 

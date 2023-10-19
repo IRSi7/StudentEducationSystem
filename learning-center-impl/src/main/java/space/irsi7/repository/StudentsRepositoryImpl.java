@@ -1,42 +1,37 @@
 package space.irsi7.repository;
 
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 import space.irsi7.dao.YamlDaoImpl;
 import space.irsi7.enums.MenuEnum;
 import space.irsi7.enums.PathsEnum;
-import space.irsi7.interfaces.StudentRepository;
+import space.irsi7.exceptions.IllegalInitialDataException;
+import space.irsi7.interfaces.Repositories.StudentsRepository;
 import space.irsi7.models.Student;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
-public class StudentRepositoryImpl implements StudentRepository {
+@Repository
+public class StudentsRepositoryImpl implements StudentsRepository {
 
     private static int nextId = 0;
 
-    final Map<Integer, Student> students;
+    Map<Integer, Student> students;
 
+    final
     YamlDaoImpl yamlDaoImpl;
 
-    private static final Logger logger = LoggerFactory.getLogger(StudentRepositoryImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(StudentsRepositoryImpl.class);
 
-    public StudentRepositoryImpl() {
-        this.yamlDaoImpl = new YamlDaoImpl();
-        try {
-            students = yamlDaoImpl.readYamlStudents(PathsEnum.STUDENTS.getPath());
-            logger.info("Данные о студентах успешно считаны из students.yaml");
-        } catch (IOException e) {
-            logger.error("Ошибка при чтении данных из students.yaml");
-            throw new RuntimeException(e);
-        }
-        nextId = students.keySet().stream().reduce(Integer::max).get() + 1;
-    }
-
-    public StudentRepositoryImpl(Map<Integer, Student> students, YamlDaoImpl yamlDaoImpl) {
-        this.students = students;
+    public StudentsRepositoryImpl(YamlDaoImpl yamlDaoImpl) {
         this.yamlDaoImpl = yamlDaoImpl;
+        this.students = new HashMap<>();
     }
 
     public Map<Integer, Student> getStudents() {
@@ -53,7 +48,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     public void addStudent(String name, int course) {
         this.students.put(nextId, new Student(nextId, name, course));
-        logger.info("Студент успешно добавлен к списку");
+//        logger.info("Студент успешно добавлен к списку");
         nextId++;
         notifyChanges();
     }
@@ -62,7 +57,7 @@ public class StudentRepositoryImpl implements StudentRepository {
         if (mark > 0 && mark < 101) {
             students.get(studentId).getMarks().add(mark);
             students.get(studentId).recountGPA();
-            logger.info("Оценка за тест успешно добавлена");
+//            logger.info("Оценка за тест успешно добавлена");
             notifyChanges();
         } else {
             logger.error("Ошибка при добавлении оценки за тест");
@@ -108,10 +103,26 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
     private void notifyChanges() {
         try {
-            yamlDaoImpl.writeYAML(new ArrayList<>(students.values()), PathsEnum.STUDENTS.getPath());
+
+            yamlDaoImpl.writeYAML(new ArrayList<>(students.values()),
+                    this.getClass().getClassLoader().getResource(PathsEnum.STUDENTS.getPath()));
             logger.info("Данные успешно записаны в students.yaml");
         } catch (IOException e) {
             logger.error("Ошибка записи данных в students.yaml");
+        }
+    }
+
+    @PostConstruct
+    public void init() {
+        try {
+            InputStream stream = this.getClass().getClassLoader().getResourceAsStream(PathsEnum.STUDENTS.getPath());
+
+            students = yamlDaoImpl.readYamlStudents(stream);
+            nextId = students.keySet().stream().reduce(Integer::max).get() + 1;
+            logger.info("Данные о студентах успешно считаны из students.yaml");
+        } catch (Exception e) {
+            logger.error("Ошибка при чтении данных из students.yaml");
+            throw new IllegalInitialDataException(e);
         }
     }
 
