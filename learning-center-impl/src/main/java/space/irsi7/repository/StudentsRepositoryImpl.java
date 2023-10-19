@@ -27,7 +27,7 @@ public class StudentsRepositoryImpl implements StudentsRepository {
     final
     YamlDaoImpl yamlDaoImpl;
 
-    private static final Logger logger = LoggerFactory.getLogger(StudentsRepositoryImpl.class);
+//    private static final Logger logger = LoggerFactory.getLogger(StudentsRepositoryImpl.class);
 
     public StudentsRepositoryImpl(YamlDaoImpl yamlDaoImpl) {
         this.yamlDaoImpl = yamlDaoImpl;
@@ -60,13 +60,13 @@ public class StudentsRepositoryImpl implements StudentsRepository {
 //            logger.info("Оценка за тест успешно добавлена");
             notifyChanges();
         } else {
-            logger.error("Ошибка при добавлении оценки за тест");
+//            logger.error("Ошибка при добавлении оценки за тест");
         }
     }
 
     public void removeStudent(int id) {
         this.students.remove(id);
-        logger.info("Студент успешно отчислен)");
+//        logger.info("Студент успешно отчислен)");
         notifyChanges();
     }
 
@@ -106,9 +106,9 @@ public class StudentsRepositoryImpl implements StudentsRepository {
 
             yamlDaoImpl.writeYAML(new ArrayList<>(students.values()),
                     this.getClass().getClassLoader().getResource(PathsEnum.STUDENTS.getPath()));
-            logger.info("Данные успешно записаны в students.yaml");
+//            logger.info("Данные успешно записаны в students.yaml");
         } catch (IOException e) {
-            logger.error("Ошибка записи данных в students.yaml");
+//            logger.error("Ошибка записи данных в students.yaml");
         }
     }
 
@@ -119,9 +119,9 @@ public class StudentsRepositoryImpl implements StudentsRepository {
 
             students = yamlDaoImpl.readYamlStudents(stream);
             nextId = students.keySet().stream().reduce(Integer::max).get() + 1;
-            logger.info("Данные о студентах успешно считаны из students.yaml");
+//            logger.info("Данные о студентах успешно считаны из students.yaml");
         } catch (Exception e) {
-            logger.error("Ошибка при чтении данных из students.yaml");
+//            logger.error("Ошибка при чтении данных из students.yaml");
             throw new IllegalInitialDataException(e);
         }
     }
