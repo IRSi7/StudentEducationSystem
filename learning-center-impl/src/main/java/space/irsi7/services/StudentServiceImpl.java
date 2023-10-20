@@ -15,7 +15,6 @@ import space.irsi7.models.Student;
 import java.util.*;
 import java.util.stream.IntStream;
 
-@EnableAspectJAutoProxy
 @Service("studService")
 public class StudentServiceImpl implements StudentService {
 
