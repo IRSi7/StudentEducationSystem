@@ -3,6 +3,7 @@ package space.irsi7.repository;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Repository;
 import space.irsi7.dao.YamlDaoImpl;
 import space.irsi7.enums.MenuEnum;
@@ -27,7 +28,7 @@ public class StudentsRepositoryImpl implements StudentsRepository {
     final
     YamlDaoImpl yamlDaoImpl;
 
-//    private static final Logger logger = LoggerFactory.getLogger(StudentsRepositoryImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(StudentsRepositoryImpl.class);
 
     public StudentsRepositoryImpl(YamlDaoImpl yamlDaoImpl) {
         this.yamlDaoImpl = yamlDaoImpl;
@@ -108,7 +109,7 @@ public class StudentsRepositoryImpl implements StudentsRepository {
                     this.getClass().getClassLoader().getResource(PathsEnum.STUDENTS.getPath()));
 //            logger.info("Данные успешно записаны в students.yaml");
         } catch (IOException e) {
-//            logger.error("Ошибка записи данных в students.yaml");
+            logger.error("Ошибка записи данных в students.yaml");
         }
     }
 
@@ -121,7 +122,7 @@ public class StudentsRepositoryImpl implements StudentsRepository {
             nextId = students.keySet().stream().reduce(Integer::max).get() + 1;
 //            logger.info("Данные о студентах успешно считаны из students.yaml");
         } catch (Exception e) {
-//            logger.error("Ошибка при чтении данных из students.yaml");
+            logger.error("Ошибка при чтении данных из students.yaml");
             throw new IllegalInitialDataException(e);
         }
     }

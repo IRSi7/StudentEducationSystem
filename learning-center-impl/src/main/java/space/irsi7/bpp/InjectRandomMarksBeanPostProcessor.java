@@ -3,6 +3,7 @@ package space.irsi7.bpp;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 import space.irsi7.annotations.InjectRandomMarks;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
+@Component
 public class InjectRandomMarksBeanPostProcessor implements BeanPostProcessor {
 
     @Override

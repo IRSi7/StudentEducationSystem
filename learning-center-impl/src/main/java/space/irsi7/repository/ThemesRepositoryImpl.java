@@ -21,7 +21,7 @@ public class ThemesRepositoryImpl implements ThemesRepository {
     @Autowired
     private YamlDaoImpl yamlDao;
     private Map<Integer, Theme> themeMap;
-//    private static final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
 
     @Override
     public Theme getTheme(int id) {
@@ -34,9 +34,9 @@ public class ThemesRepositoryImpl implements ThemesRepository {
             InputStream stream = this.getClass().getClassLoader().getResourceAsStream(PathsEnum.CONFIG.getPath());
 
             themeMap = yamlDao.readYamlThemes(stream);
-//            logger.info("Данные о темах успешно считаны из config.yaml");
+            logger.info("Данные о темах успешно считаны из config.yaml");
         } catch (Exception e) {
-//            logger.error("Ошибка при чтении тем из config.yaml");
+            logger.error("Ошибка при чтении тем(Themes) из config.yaml");
             throw new IllegalInitialDataException(e);
         }
     }

@@ -3,6 +3,7 @@ package space.irsi7.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Service;
 import space.irsi7.enums.MenuEnum;
 import space.irsi7.interfaces.Repositories.CoursesRepository;
@@ -14,6 +15,7 @@ import space.irsi7.models.Student;
 import java.util.*;
 import java.util.stream.IntStream;
 
+@EnableAspectJAutoProxy
 @Service("studService")
 public class StudentServiceImpl implements StudentService {
 

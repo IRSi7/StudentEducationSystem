@@ -20,7 +20,7 @@ public class CourseRepositoryImpl implements CoursesRepository {
     @Autowired
     private YamlDaoImpl yamlDao;
     private Map<Integer, Course> courseMap;
-//    private static final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
 
     @Override
     public Course getCourse(int id) {
@@ -33,9 +33,9 @@ public class CourseRepositoryImpl implements CoursesRepository {
             InputStream stream = this.getClass().getClassLoader().getResourceAsStream(PathsEnum.CONFIG.getPath());
 
             courseMap = yamlDao.readYamlCourses(stream);
-//            logger.info("Данные о темах успешно считаны из config.yaml");
+            logger.info("Данные о курсах(Courses) успешно считаны из config.yaml");
         } catch (Exception e) {
-//            logger.error("Ошибка при чтении тем из config.yaml");
+            logger.error("Ошибка при чтении курсов(Courses) из config.yaml");
             throw new IllegalInitialDataException(e);
         }
     }
