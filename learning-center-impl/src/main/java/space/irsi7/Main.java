@@ -15,6 +15,6 @@ public class Main {
                 = new AnnotationConfigApplicationContext(
                 MyAppContextConfiguration.class);
         Student student = (Student) context.getBean("studentBean");
-        System.out.println(student.marks.stream());
+        System.out.println(student.marks.toString());
     }
 }

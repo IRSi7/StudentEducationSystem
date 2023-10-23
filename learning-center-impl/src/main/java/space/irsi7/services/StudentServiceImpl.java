@@ -17,10 +17,9 @@ import java.util.stream.IntStream;
 @Service("studService")
 public class StudentServiceImpl implements StudentService {
 
-    StudentsRepository studentRepository;
-
-    CoursesRepository coursesRepository;
-    ThemesRepository themesRepository;
+    private final StudentsRepository studentRepository;
+    private final CoursesRepository coursesRepository;
+    private final ThemesRepository themesRepository;
     private static final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
 
     //TODO: Конструктор добавленный для тестирования... Нужно ли тестировать его ...

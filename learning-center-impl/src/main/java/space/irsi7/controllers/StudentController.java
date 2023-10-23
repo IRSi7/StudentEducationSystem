@@ -1,11 +1,12 @@
 package space.irsi7.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import space.irsi7.interfaces.StudentService;
 
-@Controller
+@RestController
 @RequestMapping("/students")
 public class StudentController {
 
@@ -13,10 +14,8 @@ public class StudentController {
     private StudentService studentService;
 
     @PostMapping("/addStudent")
-    @ResponseBody
-    public String addStudent(@RequestParam String name, int courseId) {
+    public void addStudent(@RequestParam String name, int courseId) {
         studentService.addStudent(name, courseId);
-        return "Success";
     }
 
     @PostMapping("/dropStudent")
@@ -33,12 +32,14 @@ public class StudentController {
         return "Success";
     }
 
+    //PathVariable
     @GetMapping("/getEduTimeLeft")
     @ResponseBody
     public int getEduTimeLeft(@RequestParam int id) {
         return studentService.getEduTimeLeft(id);
     }
 
+    //PathVariable
     @GetMapping("/getDropChance")
     @ResponseBody
     public String getDropChance(@RequestParam int id) {
