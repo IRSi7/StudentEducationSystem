@@ -1,0 +1,4 @@
+10:42:15.728 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'myAppContextConfiguration' of type [space.irsi7.app.MyAppContextConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+10:42:16.165 [main] INFO  s.i.r.StudentsRepositoryImpl - Данные о студентах успешно считаны из students.yaml
+10:42:16.182 [main] INFO  s.irsi7.services.StudentServiceImpl - Данные о темах успешно считаны из config.yaml
+10:42:16.191 [main] INFO  s.irsi7.services.StudentServiceImpl - Данные о темах успешно считаны из config.yaml
