@@ -1,9 +1,8 @@
 package space.irsi7.app;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import space.irsi7.LearningCenterApplication;
 import space.irsi7.services.StudentServiceImpl;
-
-import java.util.Map;
 
 public class Test {
     public static void main(String[] args) {

@@ -1,9 +1,9 @@
 package space.irsi7.repository;
 
 import jakarta.annotation.PostConstruct;
+import org.codehaus.jackson.annotate.JsonAnyGetter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Repository;
 import space.irsi7.dao.YamlDaoImpl;
 import space.irsi7.enums.MenuEnum;
@@ -25,8 +25,7 @@ public class StudentsRepositoryImpl implements StudentsRepository {
 
     Map<Integer, Student> students;
 
-    final
-    YamlDaoImpl yamlDaoImpl;
+    private final YamlDaoImpl yamlDaoImpl;
 
     private static final Logger logger = LoggerFactory.getLogger(StudentsRepositoryImpl.class);
 
@@ -61,7 +60,7 @@ public class StudentsRepositoryImpl implements StudentsRepository {
 //            logger.info("Оценка за тест успешно добавлена");
             notifyChanges();
         } else {
-//            logger.error("Ошибка при добавлении оценки за тест");
+            logger.error("Некорректная оценка за тест");
         }
     }
 
