@@ -1,4 +1,4 @@
-package space.irsi7;
+package space.irsi7.unit;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -28,15 +28,8 @@ public class StudentServiceImplTest {
     StudentsRepositoryImpl studentRepository = Mockito.mock(StudentsRepositoryImpl.class);
     CoursesRepository coursesRepository = Mockito.mock(CourseRepositoryImpl.class);
     ThemesRepository themesRepository = Mockito.mock(ThemesRepositoryImpl.class);
-
     StudentServiceImpl studentService = new StudentServiceImpl(studentRepository, coursesRepository, themesRepository);
 
-//    @Test
-//    public void constructor_throws_exception_without_source(){
-//        assertThrows(RuntimeException.class, () -> {
-//            var test = new StudentServiceImpl();
-//        });
-//    }
 
     @Test
     public void correct_time_left_with_some_mark() {

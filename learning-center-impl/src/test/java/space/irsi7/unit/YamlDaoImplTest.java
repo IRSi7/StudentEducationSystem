@@ -1,4 +1,4 @@
-package space.irsi7;
+package space.irsi7.unit;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

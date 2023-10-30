@@ -1,4 +1,4 @@
-package space.irsi7;
+package space.irsi7.unit;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,6 @@ public class StudentsRepositoryImplTest {
     @BeforeAll
     static void init() {
         studentRepository = new StudentsRepositoryImpl(Mockito.mock(YamlDaoImpl.class));
-        //studentRepository = new StudentsRepositoryImpl(new HashMap<>(), Mockito.mock(YamlDaoImpl.class));
     }
 
     @Test
@@ -48,7 +47,6 @@ public class StudentsRepositoryImplTest {
         studentRepository.addStudent("Test", 0);
         studentRepository.rateStudent(index, 100);
         Student student = studentRepository.getStudent(index);
-        // TODO: Есть ли более изящный способ получить последний элемент коллекции, или ждать Java 21?)
         assertEquals(100, student.marks.get(student.marks.size() - 1));
     }
 
@@ -108,12 +106,6 @@ public class StudentsRepositoryImplTest {
         ArrayList<Student> sample = studentRepository.getStudentSample(MenuEnum.SORT_ID.ordinal(), MenuEnum.FILTER_HIGH.ordinal());
         assertThat(sample.size(), equalTo(3));
     }
-
-    //TODO: Спросить почему этот тест выполняется дольше всех (280мс)
-//    @Test
-//    public void empty_constructor_throws_exception() {
-//        assertThrows(RuntimeException.class, () -> studentRepository = new StudentRepositoryImpl());
-//    }
 
     private void init_test_students_with_marks() {
         init();

@@ -64,6 +64,9 @@ public class StudentServiceImpl implements StudentService {
 
     public int getEduTimeLeft(int studentId) {
         Student curStudent = studentRepository.getStudent(studentId);
+        if (curStudent == null){
+            return -1;
+        }
         int passed = curStudent.getMarks().size();
         int all = coursesRepository.getCourse(curStudent.getCourseId()).themeIds.size();
         return (all - passed);
@@ -72,6 +75,9 @@ public class StudentServiceImpl implements StudentService {
     public String getReportStudent(int studId) {
 
         Student curStudent = studentRepository.getStudent(studId);
+        if(curStudent == null){
+            return "No such student";
+        }
         StringBuilder answer = new StringBuilder();
         answer.append("Student: ")
                 .append(curStudent.getName())
