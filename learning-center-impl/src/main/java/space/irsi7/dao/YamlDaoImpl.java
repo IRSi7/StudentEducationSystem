@@ -19,8 +19,8 @@ import java.util.*;
 @Component
 public class YamlDaoImpl implements YamlDAO {
 
-    ObjectMapper mapper = new YAMLMapper().enable(SerializationFeature.INDENT_OUTPUT);
-    Yaml yaml = new Yaml();
+    private final ObjectMapper mapper = new YAMLMapper().enable(SerializationFeature.INDENT_OUTPUT);
+    private final Yaml yaml = new Yaml();
 
     public void writeYAML(List<Object> arrayList, URL url) throws IOException {
         try {
@@ -46,11 +46,6 @@ public class YamlDaoImpl implements YamlDAO {
         });
         return answer;
     }
-
-
-//    public Map<Integer, Student> getStudentsMap(String path) throws IOException {
-//        return readYamlStudentsArray(path).stream().collect(Collectors.toMap(Student::getId, s -> s));
-//    }
 
     public void readYamlConfig(InputStream stream,
                                Map<Integer, Course> courseMap,

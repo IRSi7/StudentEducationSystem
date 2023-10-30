@@ -3,7 +3,6 @@ package space.irsi7.repository;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import space.irsi7.dao.YamlDaoImpl;
 import space.irsi7.enums.PathsEnum;
@@ -17,10 +16,13 @@ import java.util.Map;
 
 @Repository
 public class CourseRepositoryImpl implements CoursesRepository {
-    @Autowired
-    private YamlDaoImpl yamlDao;
+    private final YamlDaoImpl yamlDao;
     private Map<Integer, Course> courseMap;
     private static final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
+
+    public CourseRepositoryImpl(YamlDaoImpl yamlDao) {
+        this.yamlDao = yamlDao;
+    }
 
     @Override
     public Course getCourse(int id) {

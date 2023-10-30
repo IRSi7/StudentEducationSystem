@@ -7,50 +7,26 @@ import java.util.Map;
 
 import static java.lang.Math.round;
 
+@lombok.Getter
 public class Student extends Readable{
 
-    public int id;
-
-    public String name;
-    public int courseId;
+    private int id;
+    private String name;
+    private int courseId;
     @InjectRandomMarks(min = 20, max = 80, amount = 6)
-    public ArrayList<Integer> marks;
-    public int gpa;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
+    private ArrayList<Integer> marks;
+    private int gpa;
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getCourseId() {
-        return courseId;
     }
 
     public void setCourseId(int courseId) {
         this.courseId = courseId;
     }
 
-    public ArrayList<Integer> getMarks() {
-        return marks;
-    }
-
     public void setMarks(ArrayList<Integer> marks) {
         this.marks = marks;
-    }
-
-    public int getGpa() {
-        return gpa;
     }
 
     public void setGpa(int gpa) {

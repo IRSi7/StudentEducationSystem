@@ -2,7 +2,6 @@ package space.irsi7.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 import space.irsi7.enums.MenuEnum;
@@ -19,13 +18,10 @@ import java.util.stream.IntStream;
 public class StudentServiceImpl implements StudentService {
 
     StudentsRepository studentRepository;
-
     CoursesRepository coursesRepository;
     ThemesRepository themesRepository;
     private static final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
 
-    //TODO: Конструктор добавленный для тестирования... Нужно ли тестировать его ...
-    @Autowired
     public StudentServiceImpl(StudentsRepository studentRepository,
                               CoursesRepository coursesRepository,
                               ThemesRepository themesRepository) {
@@ -48,7 +44,7 @@ public class StudentServiceImpl implements StudentService {
 
     public int getEduTimeLeft(int studentId) {
         Student curStudent = studentRepository.getStudent(studentId);
-        if (curStudent == null){
+        if (curStudent == null) {
             return -1;
         }
         int passed = curStudent.getMarks().size();
@@ -59,7 +55,7 @@ public class StudentServiceImpl implements StudentService {
     public String getReportStudent(int studId) {
 
         Student curStudent = studentRepository.getStudent(studId);
-        if(curStudent == null){
+        if (curStudent == null) {
             return "No such student";
         }
         StringBuilder answer = new StringBuilder();
@@ -86,7 +82,7 @@ public class StudentServiceImpl implements StudentService {
 
     public List<String> getAllReport(int sort, int order, int filter) {
         List<String> answer = new ArrayList<>();
-        studentRepository.getStudentSample(sort, filter) .forEach(s -> answer.add(s.toString()));
+        studentRepository.getStudentSample(sort, filter).forEach(s -> answer.add(s.toString()));
         if (order == MenuEnum.ORDER_REVERSED.ordinal()) {
             Collections.reverse(answer);
         }
@@ -94,7 +90,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public boolean validateId(int id) {
-        return  studentRepository.containsStudent(id);
+        return studentRepository.containsStudent(id);
     }
 
     public int getGPA(int studId) {

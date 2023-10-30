@@ -25,7 +25,6 @@ public class MyWebAppInitializer implements WebApplicationInitializer {
         ServletRegistration.Dynamic dispatcher = container
                 .addServlet("dispatcher", new DispatcherServlet(context));
 
-//        Student student = (Student) context.getBean("studentBean");
         dispatcher.addMapping("/");
     }
 }
