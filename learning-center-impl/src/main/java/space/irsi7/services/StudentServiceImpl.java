@@ -3,7 +3,7 @@ package space.irsi7.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
 import org.springframework.stereotype.Service;
 import space.irsi7.enums.MenuEnum;
 import space.irsi7.interfaces.Repositories.CoursesRepository;
@@ -33,22 +33,6 @@ public class StudentServiceImpl implements StudentService {
         this.themesRepository = themesRepository;
         this.coursesRepository = coursesRepository;
     }
-
-//    @Autowired
-//    public StudentServiceImpl(StudentsRepositoryImpl studentRepository, YamlDaoImpl yamlDAO) {
-//        this.studentRepository = studentRepository;
-//        this.yamlDAO = yamlDAO;
-//        try {
-//            themes = new HashMap<>();
-//            courses = new HashMap<>();
-//            yamlDAO.readYamlConfig((this.getClass().getClassLoader().getResourceAsStream(PathsEnum.CONFIG.getPath())), courses, themes);
-//            logger.info("Данные о темах и курсах успешно считаны из config.yaml");
-//        } catch (ExceptionInInitializerError | IOException e) {
-//            logger.error("Ошибка при чтении файла config.yaml");
-//            throw new IllegalInitialDataException("Ошибка при чтении файла config.yaml", e);
-//
-//        }
-//    }
 
     public void addStudent(String name, int course) {
         studentRepository.addStudent(name, course);
