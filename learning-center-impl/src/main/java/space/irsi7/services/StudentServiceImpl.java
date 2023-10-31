@@ -2,47 +2,33 @@ package space.irsi7.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import space.irsi7.dao.YamlDaoImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import space.irsi7.enums.MenuEnum;
-import space.irsi7.enums.PathsEnum;
-import space.irsi7.exceptions.IllegalInitialDataException;
+import space.irsi7.interfaces.Repositories.CoursesRepository;
+import space.irsi7.interfaces.Repositories.StudentsRepository;
+import space.irsi7.interfaces.Repositories.ThemesRepository;
 import space.irsi7.interfaces.StudentService;
-import space.irsi7.models.Course;
 import space.irsi7.models.Student;
-import space.irsi7.models.Theme;
-import space.irsi7.repository.StudentRepositoryImpl;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.stream.IntStream;
 
+@Service("studService")
 public class StudentServiceImpl implements StudentService {
 
-    final StudentRepositoryImpl studentRepository;
-    final Map<Integer, Course> courses;
-    final Map<Integer, Theme> themes;
+    private final StudentsRepository studentRepository;
+    private final CoursesRepository coursesRepository;
+    private final ThemesRepository themesRepository;
     private static final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
 
-    public StudentServiceImpl() throws IllegalInitialDataException {
-        studentRepository = new StudentRepositoryImpl();
-        try {
-            var yamlDAO = new YamlDaoImpl();
-            themes = new HashMap<>();
-            courses = new HashMap<>();
-            yamlDAO.readYamlConfig(PathsEnum.CONFIG.getPath(), courses, themes);
-            logger.info("Данные о темах и курсах успешно считаны из config.yaml");
-        } catch (ExceptionInInitializerError | IOException e) {
-            logger.error("Ошибка при чтении файла config.yaml");
-            throw new IllegalInitialDataException("Ошибка при чтении файла config.yaml", e);
-
-        }
-    }
-
-    //TODO: Конструктор добавленный для тестирования... Нужно ли тестировать его ...
-    public StudentServiceImpl(StudentRepositoryImpl studentRepository, Map<Integer, Course> courses, Map<Integer, Theme> themes) {
+    @Autowired
+    public StudentServiceImpl(StudentsRepository studentRepository,
+                              CoursesRepository coursesRepository,
+                              ThemesRepository themesRepository) {
         this.studentRepository = studentRepository;
-        this.courses = courses;
-        this.themes = themes;
+        this.themesRepository = themesRepository;
+        this.coursesRepository = coursesRepository;
     }
 
     public void addStudent(String name, int course) {
@@ -60,34 +46,33 @@ public class StudentServiceImpl implements StudentService {
     public int getEduTimeLeft(int studentId) {
         Student curStudent = studentRepository.getStudent(studentId);
         int passed = curStudent.getMarks().size();
-        int all = courses.get(curStudent.getCourseId()).themeIds.size();
+        int all = coursesRepository.getCourse(curStudent.getCourseId()).themeIds.size();
         return (all - passed);
     }
 
     public String getReportStudent(int studId) {
 
         Student curStudent = studentRepository.getStudent(studId);
-        StringBuilder answer = new StringBuilder("---------------------------------------------\n");
-        answer.append("Студент: ")
+        StringBuilder answer = new StringBuilder();
+        answer.append("Student: ")
                 .append(curStudent.getName())
                 .append("\n");
-        answer.append("Тесты:\n");
+        answer.append("| Tests: \n");
 
         IntStream.range(0, curStudent.getMarks().size())
                 .forEach(i -> answer.append("\t").append(i + 1)
-                        .append(". | Тема: ")
-                        .append(themes.get(courses.get(curStudent.getCourseId())
+                        .append(". | Theme: ")
+                        .append(themesRepository.getTheme(coursesRepository.getCourse(curStudent.getCourseId())
                                 .themeIds.get(i)).name)
-                        .append(" | Оценка: ")
+                        .append(" | Mark: ")
                         .append(studentRepository.getStudent(studId).getMarks().get(i))
                         .append(" |\n"));
-        answer.append("Средний балл: ").append(getGPA(studId)).append("\n");
-        answer.append(("---------------------------------------------"));
+        answer.append("GPA: ").append(getGPA(studId)).append("\n");
         return answer.toString();
     }
 
-    public Boolean getDropChance(int studId) {
-        return studentRepository.getStudent(studId).getGpa() >= 75;
+    public String getDropChance(int studId) {
+        return (studentRepository.getStudent(studId).getGpa() >= 75) ? "Low probability to be expelled" : "High probability to be expelled";
     }
 
     public List<String> getAllReport(int sort, int order, int filter) {

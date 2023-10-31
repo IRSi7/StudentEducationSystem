@@ -1,8 +1,8 @@
 package space.irsi7.enums;
 
 public enum PathsEnum {
-    STUDENTS("learning-center-impl/src/main/resources/data/students.yaml"),
-    CONFIG("learning-center-impl/src/main/resources/data/properties.yaml");
+    STUDENTS("data/students.yaml"),
+    CONFIG("data/properties.yaml");
 
     public String getPath() {
         return path;

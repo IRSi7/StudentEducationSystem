@@ -2,8 +2,8 @@ package space.irsi7;
 
 enum TestPathEnum {
 
-    STUDENTS("src/test/resources/data/test_students.yaml"),
-    CONFIG("src/test/resources/data/test_properties.yaml");
+    STUDENTS("data/test_students.yaml"),
+    CONFIG("data/test_properties.yaml");
 
     public String getPath() {
         return path;
