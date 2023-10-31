@@ -1,12 +1,11 @@
 package space.irsi7.models;
 
 import java.util.Map;
-import java.util.Objects;
 
 public class Theme extends Readable {
-    public int id;
-    public String name;
-    public int hours;
+    private int id;
+    private String name;
+    private int hours;
 
     public Theme(int id, String name, int hours) {
         this.id = id;

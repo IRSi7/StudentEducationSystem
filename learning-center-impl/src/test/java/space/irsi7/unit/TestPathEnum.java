@@ -1,16 +1,16 @@
-package space.irsi7.enums;
+package space.irsi7.unit;
 
-public enum PathsEnum {
+import lombok.Getter;
+
+@Getter
+enum TestPathEnum {
+
     STUDENTS("data/students.yaml"),
     CONFIG("data/properties.yaml");
 
-    public String getPath() {
-        return path;
-    }
-
     private final String path;
 
-    PathsEnum(String path) {
+    TestPathEnum(String path) {
         this.path = path;
     }
 }

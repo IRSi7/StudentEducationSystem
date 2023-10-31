@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Course extends Readable {
 
-    public int id;
-    public ArrayList<Integer> themeIds;
+    private int id;
+    private ArrayList<Integer> themeIds;
 
     public Course(int id, ArrayList<Integer> themeIds){
         this.id = id;

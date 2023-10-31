@@ -1,0 +1,5 @@
+#  - public * space.irsi7.*.*.getStudent(*)
+logger:
+  strings:
+  - public * space.irsi7.*.*.getEduTimeLeft(*)
+#  - public * space.irsi7.*.*.getReport(*)
