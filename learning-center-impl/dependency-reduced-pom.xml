@@ -24,7 +24,7 @@
         <configuration>
           <transformers>
             <transformer>
-              <mainClass>space.irsi7.Main</mainClass>
+              <mainClass>space.irsi7.TestMain</mainClass>
             </transformer>
           </transformers>
         </configuration>
