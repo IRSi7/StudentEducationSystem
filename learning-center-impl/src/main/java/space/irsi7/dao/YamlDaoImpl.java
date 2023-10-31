@@ -47,16 +47,10 @@ public class YamlDaoImpl implements YamlDAO {
         return answer;
     }
 
-
-//    public Map<Integer, Student> getStudentsMap(String path) throws IOException {
-//        return readYamlStudentsArray(path).stream().collect(Collectors.toMap(Student::getId, s -> s));
-//    }
-
     public void readYamlConfig(InputStream stream,
                                Map<Integer, Course> courseMap,
                                Map<Integer, Theme> themeMap) throws IOException {
 
-        //var stream = Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(path));
         Map<String, List<?>> configFile = mapper.readValue(stream, new TypeReference<>() {} );
 
         stream.close();

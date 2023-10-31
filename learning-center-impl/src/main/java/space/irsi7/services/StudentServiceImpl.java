@@ -22,7 +22,6 @@ public class StudentServiceImpl implements StudentService {
     private final ThemesRepository themesRepository;
     private static final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
 
-    //TODO: Конструктор добавленный для тестирования... Нужно ли тестировать его ...
     @Autowired
     public StudentServiceImpl(StudentsRepository studentRepository,
                               CoursesRepository coursesRepository,
@@ -31,22 +30,6 @@ public class StudentServiceImpl implements StudentService {
         this.themesRepository = themesRepository;
         this.coursesRepository = coursesRepository;
     }
-
-//    @Autowired
-//    public StudentServiceImpl(StudentsRepositoryImpl studentRepository, YamlDaoImpl yamlDAO) {
-//        this.studentRepository = studentRepository;
-//        this.yamlDAO = yamlDAO;
-//        try {
-//            themes = new HashMap<>();
-//            courses = new HashMap<>();
-//            yamlDAO.readYamlConfig((this.getClass().getClassLoader().getResourceAsStream(PathsEnum.CONFIG.getPath())), courses, themes);
-//            logger.info("Данные о темах и курсах успешно считаны из config.yaml");
-//        } catch (ExceptionInInitializerError | IOException e) {
-//            logger.error("Ошибка при чтении файла config.yaml");
-//            throw new IllegalInitialDataException("Ошибка при чтении файла config.yaml", e);
-//
-//        }
-//    }
 
     public void addStudent(String name, int course) {
         studentRepository.addStudent(name, course);
