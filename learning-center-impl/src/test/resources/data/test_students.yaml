@@ -1,0 +1,6 @@
+- !!space.irsi7.models.Student
+  courseId: 0
+  gpa: 0
+  id: 0
+  marks: [0, 0, 0]
+  name: Test Test
