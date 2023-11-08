@@ -1,120 +1,75 @@
 package space.irsi7.repository;
 
-import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import space.irsi7.dao.YamlDaoImpl;
-import space.irsi7.enums.MenuEnum;
-import space.irsi7.enums.PathsEnum;
-import space.irsi7.exceptions.IllegalInitialDataException;
-import space.irsi7.interfaces.Repositories.StudentsRepository;
+import space.irsi7.interfaces.repositories.StudentsRepository;
+import space.irsi7.mappers.StudentMapper;
 import space.irsi7.models.Student;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import javax.sql.DataSource;
+import java.sql.Types;
+import java.util.*;
 
 @Repository
 public class StudentsRepositoryImpl implements StudentsRepository {
-
-    private static int nextId = 0;
-
-    @lombok.Getter
-    private Map<Integer, Student> students;
-
-    private final YamlDaoImpl yamlDaoImpl;
-
     private static final Logger logger = LoggerFactory.getLogger(StudentsRepositoryImpl.class);
+    private final JdbcTemplate mJdbcTemplate;
 
-    public StudentsRepositoryImpl(YamlDaoImpl yamlDaoImpl) {
-        this.yamlDaoImpl = yamlDaoImpl;
-        this.students = new HashMap<>();
+    private final StudentMapper studentMapper;
+
+    //Запросы к БД
+    private final static String SQL_GET_STUDENT_BY_ID =
+            "SELECT * FROM students WHERE id = ?;";
+    private final static String SQL_DELETE_STUDENT_BY_ID =
+            "DELETE FROM students WHERE id = ?;";
+    private final static String SQL_PUT_STUDENT =
+            "INSERT INTO students (name, course_id, group_id) VALUES (?,?,?);";
+
+    private final static String SQL_GET_ALL_STUDENTS =
+            "SELECT id, name, course_id, band_id, gpa FROM students";
+
+    @Autowired
+    public StudentsRepositoryImpl(DataSource dataSource, StudentMapper mapper){
+        this.mJdbcTemplate = new JdbcTemplate(dataSource);
+        this.studentMapper = mapper;
     }
 
-    public Student getStudent(int id){
-        return students.get(id);
+    @Override
+    public Student getStudentById(int id) {
+        return mJdbcTemplate.queryForObject(
+                SQL_GET_STUDENT_BY_ID,
+                new Object[]{id},
+                new int[]{Types.INTEGER},
+                studentMapper
+        );
     }
 
-    public int getNextId() {
-        return nextId;
+    @Override
+    public List<Student> getAllStudents() {
+        return mJdbcTemplate.query(
+                SQL_GET_ALL_STUDENTS,
+                studentMapper
+        );
     }
 
-    public void addStudent(String name, int course) {
-        this.students.put(nextId, new Student(nextId, name, course));
-        nextId++;
-        notifyChanges();
+    @Override
+    public void addStudent(String name, int course, int group) {
+        mJdbcTemplate.update(
+                SQL_PUT_STUDENT,
+                new Object[]{name, course, group},
+                new int[]{Types.VARCHAR, Types.INTEGER, Types.INTEGER}
+        );
     }
 
-    public void rateStudent(int studentId, int mark) {
-        if (mark > 0 && mark < 101) {
-            students.get(studentId).getMarks().add(mark);
-            students.get(studentId).recountGPA();
-            notifyChanges();
-        } else {
-            logger.error("Некорректная оценка за тест");
-        }
-    }
-
+    @Override
     public void removeStudent(int id) {
-        this.students.remove(id);
-        notifyChanges();
+        mJdbcTemplate.update(
+                SQL_DELETE_STUDENT_BY_ID,
+                new Object[]{id},
+                new int[]{Types.INTEGER}
+        );
     }
-
-    public boolean containsStudent(int id){
-        return students.containsKey(id);
-    }
-    public ArrayList<Student> getStudentSample(int sort, int filter){
-        return new ArrayList<>(students.values().stream()
-                .filter( s -> {
-                    if(filter == MenuEnum.FILTER_LOW.ordinal()){
-                        return s.getGpa() < 75;
-                    }
-                    if(filter == MenuEnum.FILTER_HIGH.ordinal()){
-                        return s.getGpa() >= 75;
-                    }
-                    return true;
-                })
-                .sorted((Student s, Student s1) -> {
-                    if(sort == MenuEnum.SORT_ID.ordinal()){
-                        return Integer.compare(s.getId(), s1.getId());
-                    }
-                    if(sort == MenuEnum.SORT_NAME.ordinal()){
-                        return s.getName().compareTo(s1.getName());
-                    }
-                    if(sort == MenuEnum.SORT_TESTS_PASSED.ordinal()){
-                        return Integer.compare(s.getMarks().size(), s1.getMarks().size());
-                    }
-                    if(sort == MenuEnum.SORT_GPA.ordinal()){
-                        return Integer.compare(s.getGpa(), s1.getGpa());
-                    }
-                    return 0;
-                })
-                .toList());
-    }
-    private void notifyChanges() {
-        try {
-            yamlDaoImpl.writeYAML(new ArrayList<>(students.values()),
-                    Objects.requireNonNull(this.getClass().getClassLoader().getResource(PathsEnum.STUDENTS.getPath())));
-        } catch (IOException e) {
-            logger.error("Ошибка записи данных в students.yaml");
-        }
-    }
-
-    @PostConstruct
-    public void init() {
-        try {
-            InputStream stream = this.getClass().getClassLoader().getResourceAsStream(PathsEnum.STUDENTS.getPath());
-
-            students = yamlDaoImpl.readYamlStudents(stream);
-            nextId = students.keySet().stream().reduce(Integer::max).get() + 1;
-        } catch (Exception e) {
-            logger.error("Ошибка при чтении данных из students.yaml");
-            throw new IllegalInitialDataException(e);
-        }
-    }
-
 }

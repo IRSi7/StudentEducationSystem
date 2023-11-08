@@ -1,4 +1,4 @@
-package space.irsi7.interfaces;
+package space.irsi7.interfaces.daos;
 
 import space.irsi7.models.Course;
 import space.irsi7.models.Student;

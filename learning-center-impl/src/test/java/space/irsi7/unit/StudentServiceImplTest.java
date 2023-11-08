@@ -5,8 +5,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 import space.irsi7.enums.MenuEnum;
-import space.irsi7.interfaces.Repositories.CoursesRepository;
-import space.irsi7.interfaces.Repositories.ThemesRepository;
+import space.irsi7.interfaces.repositories.CoursesRepository;
+import space.irsi7.interfaces.repositories.ThemesRepository;
 import space.irsi7.models.Course;
 import space.irsi7.models.Student;
 import space.irsi7.models.Theme;
@@ -69,7 +69,7 @@ public class StudentServiceImplTest {
         Theme testTheme = new Theme(0, "Test Theme 3", 3);
         when(studentRepository.getStudent(0)).thenReturn(testStudent);
         when(coursesRepository.getCourse(0)).thenReturn(testCourse);
-        when(themesRepository.getTheme(0)).thenReturn(testTheme);
+        when(themesRepository.getThemeById(0)).thenReturn(testTheme);
 
         //when
         String answer = studentService.getReportStudent(0);

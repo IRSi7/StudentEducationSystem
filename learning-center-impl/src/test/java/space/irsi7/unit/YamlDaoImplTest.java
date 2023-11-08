@@ -3,7 +3,6 @@ package space.irsi7.unit;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import space.irsi7.dao.YamlDaoImpl;
 import space.irsi7.models.Course;
 import space.irsi7.models.Student;
 import space.irsi7.models.Theme;

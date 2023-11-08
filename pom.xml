@@ -10,7 +10,7 @@
     </parent>
     <groupId>space.irsi7</groupId>
     <artifactId>learning-center</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>learning-center</name>
     <description>Demo project for Spring Boot</description>
 

@@ -3,3 +3,9 @@ logger:
   strings:
   - public * space.irsi7.*.*.getEduTimeLeft(*)
 #  - public * space.irsi7.*.*.getReport(*)
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/LearningCenter
+    username: postgres
+    password: "postgres"

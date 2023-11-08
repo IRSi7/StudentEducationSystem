@@ -1,4 +1,4 @@
-package space.irsi7.interfaces.Repositories;
+package space.irsi7.interfaces.repositories;
 
 import space.irsi7.models.Course;
 
