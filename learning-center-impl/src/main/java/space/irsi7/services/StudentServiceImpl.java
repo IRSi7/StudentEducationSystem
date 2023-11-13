@@ -2,108 +2,125 @@ package space.irsi7.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import space.irsi7.dao.YamlDaoImpl;
+
+import org.springframework.stereotype.Service;
 import space.irsi7.enums.MenuEnum;
-import space.irsi7.enums.PathsEnum;
-import space.irsi7.exceptions.IllegalInitialDataException;
+import space.irsi7.exceptions.StudentNotFoundException;
+import space.irsi7.interfaces.repositories.*;
 import space.irsi7.interfaces.StudentService;
-import space.irsi7.models.Course;
-import space.irsi7.models.Student;
-import space.irsi7.models.Theme;
-import space.irsi7.repository.StudentRepositoryImpl;
+import space.irsi7.models.*;
 
-import java.io.IOException;
 import java.util.*;
-import java.util.stream.IntStream;
 
+@Service("studService")
 public class StudentServiceImpl implements StudentService {
 
-    final StudentRepositoryImpl studentRepository;
-    final Map<Integer, Course> courses;
-    final Map<Integer, Theme> themes;
+    StudentsRepository studentRepository;
+    ThemesRepository themesRepository;
+    TestsRepository testsRepository;
+    MarksRepository marksRepository;
     private static final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
 
-    public StudentServiceImpl() throws IllegalInitialDataException {
-        studentRepository = new StudentRepositoryImpl();
-        try {
-            var yamlDAO = new YamlDaoImpl();
-            themes = new HashMap<>();
-            courses = new HashMap<>();
-            yamlDAO.readYamlConfig(PathsEnum.CONFIG.getPath(), courses, themes);
-            logger.info("Данные о темах и курсах успешно считаны из config.yaml");
-        } catch (ExceptionInInitializerError | IOException e) {
-            logger.error("Ошибка при чтении файла config.yaml");
-            throw new IllegalInitialDataException("Ошибка при чтении файла config.yaml", e);
-
-        }
-    }
-
-    //TODO: Конструктор добавленный для тестирования... Нужно ли тестировать его ...
-    public StudentServiceImpl(StudentRepositoryImpl studentRepository, Map<Integer, Course> courses, Map<Integer, Theme> themes) {
+    public StudentServiceImpl(StudentsRepository studentRepository, ThemesRepository themesRepository, TestsRepository testsRepository, MarksRepository marksRepository) {
         this.studentRepository = studentRepository;
-        this.courses = courses;
-        this.themes = themes;
+        this.themesRepository = themesRepository;
+        this.testsRepository = testsRepository;
+        this.marksRepository = marksRepository;
     }
 
-    public void addStudent(String name, int course) {
-        studentRepository.addStudent(name, course);
+    public boolean addStudent(String name, int course, int group) {
+        return studentRepository.addStudent(name, course, group);
     }
 
-    public void removeStudent(int id) {
-        studentRepository.removeStudent(id);
+    public boolean removeStudent(int id) {
+        return studentRepository.removeStudent(id);
     }
 
-    public void rateStudent(int studentId, int mark) {
-        studentRepository.rateStudent(studentId, mark);
+    public boolean rateStudent(int studentId, int testId, int mark) {
+        return marksRepository.addMark(studentId, testId, mark);
     }
 
-    public int getEduTimeLeft(int studentId) {
-        Student curStudent = studentRepository.getStudent(studentId);
-        int passed = curStudent.getMarks().size();
-        int all = courses.get(curStudent.getCourseId()).themeIds.size();
-        return (all - passed);
+    public Optional<Integer> getEduTimeLeft(int studentId) {
+        Student student;
+        try {
+            student = studentRepository.getStudentById(studentId);
+        } catch (StudentNotFoundException e) {
+            return Optional.empty();
+        }
+        List<Theme> themes = themesRepository.getThemesByCourseId(student.course());
+        List<Mark> marks = marksRepository.getMarksByStudentId(studentId);
+        return Optional.of( themes.size() - marks.size());
     }
 
-    public String getReportStudent(int studId) {
-
-        Student curStudent = studentRepository.getStudent(studId);
-        StringBuilder answer = new StringBuilder("---------------------------------------------\n");
-        answer.append("Студент: ")
-                .append(curStudent.getName())
-                .append("\n");
-        answer.append("Тесты:\n");
-
-        IntStream.range(0, curStudent.getMarks().size())
-                .forEach(i -> answer.append("\t").append(i + 1)
-                        .append(". | Тема: ")
-                        .append(themes.get(courses.get(curStudent.getCourseId())
-                                .themeIds.get(i)).name)
-                        .append(" | Оценка: ")
-                        .append(studentRepository.getStudent(studId).getMarks().get(i))
-                        .append(" |\n"));
-        answer.append("Средний балл: ").append(getGPA(studId)).append("\n");
-        answer.append(("---------------------------------------------"));
-        return answer.toString();
+    @Override
+    public Optional<StudentRest> getReport(int id) {
+        Student student;
+        try {
+            student = studentRepository.getStudentById(id);
+        } catch (StudentNotFoundException e) {
+            return Optional.empty();
+        }
+        List<Mark> marks = marksRepository.getMarksByStudentId(id);
+        List<Theme> themes = themesRepository.getThemesByCourseId(student.course());
+        List<Test> tests = testsRepository.getTestsByStudentId(student.id());
+        StudentRest answer = new StudentRest(student.id(), student.name(), student.course(), student.group(), themes, marks, tests);
+        return Optional.of(answer);
     }
 
-    public Boolean getDropChance(int studId) {
-        return studentRepository.getStudent(studId).getGpa() >= 75;
+    public Optional<String> getDropChance(int studId) {
+        return Optional.of((getGPA(studId) >= 75) ? "Low probability to be expelled" : "High probability to be expelled");
     }
 
-    public List<String> getAllReport(int sort, int order, int filter) {
-        List<String> answer = new ArrayList<>();
-        studentRepository.getStudentSample(sort, filter) .forEach(s -> answer.add(s.toString()));
-        if (order == MenuEnum.ORDER_REVERSED.ordinal()) {
+    @Override
+    public List<StudentRest> getAllReport(int sort, int order, int filter) {
+        /*FIXME: Спросить про множественные запросы к БД.
+        Лучше один раз считать всё, включая лишнее, и дальше ворочать этот массив данных или сделать много маленьких но точных запросов?
+         */
+        List<Student> students = studentRepository.getAllStudents();
+        Map<Integer, Integer> gpa = new LinkedHashMap<>();
+        students.forEach(it -> gpa.put(it.id(), getGPA(it.id())));
+
+        List<StudentRest> answer = new ArrayList<>();
+
+
+        students.stream().filter(s -> {
+            if (filter == MenuEnum.FILTER_LOW.ordinal()) {
+                return gpa.get(s.id()) < 75;
+            }
+            if (filter == MenuEnum.FILTER_HIGH.ordinal()) {
+                return gpa.get(s.id()) >= 75;
+            }
+            return true;
+        }).sorted((Student s, Student s1) -> {
+            if (sort == MenuEnum.SORT_ID.ordinal()) {
+                return Integer.compare(s.id(), s1.id());
+            }
+            if (sort == MenuEnum.SORT_NAME.ordinal()) {
+                return s.name().compareTo(s1.name());
+            }
+            if (sort == MenuEnum.SORT_GPA.ordinal()) {
+                return Integer.compare(gpa.get(s.id()), gpa.get(s1.id()));
+            }
+            return 0;
+        }).forEach(it -> answer.add(getReport(it.id()).orElse(null)));
+
+        if(order == MenuEnum.ORDER_REVERSED.ordinal()){
             Collections.reverse(answer);
         }
+
         return answer;
     }
 
-    public boolean validateId(int id) {
-        return  studentRepository.containsStudent(id);
-    }
-
-    public int getGPA(int studId) {
-        return studentRepository.getStudent(studId).getGpa();
+    @Override
+    public int getGPA(int studentId) {
+        List<Mark> marks = marksRepository.getMarksByStudentId(studentId);
+        int answer = 0;
+        for (Mark mark : marks) {
+            answer += mark.mark();
+        }
+        if (marks.isEmpty()) {
+            return answer;
+        }
+        return answer / marks.size();
     }
 }

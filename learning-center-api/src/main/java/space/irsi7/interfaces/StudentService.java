@@ -1,16 +1,24 @@
 package space.irsi7.interfaces;
 
+import space.irsi7.exceptions.StudentNotFoundException;
+import space.irsi7.models.Student;
+import space.irsi7.models.StudentRest;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Optional;
 
 public interface StudentService {
 
-    void addStudent(String name, int course);
-    void removeStudent(int id);
-    void rateStudent(int studentId, int mark);
-    int getEduTimeLeft(int studentId);
-    String getReportStudent(int studId);
-    Boolean getDropChance(int studId);
-    List<String> getAllReport(int sort, int order, int filter);
+    boolean addStudent(String name, int course, int group);
+    boolean removeStudent(int id);
+    boolean rateStudent(int studentId, int testId, int mark);
+    Optional<Integer> getEduTimeLeft(int studentId);
+
+    Optional<StudentRest> getReport(int id);
+    Optional<String> getDropChance(int studId);
+    List<StudentRest> getAllReport(int sort, int order, int filter);
     int getGPA(int studId);
 
 }

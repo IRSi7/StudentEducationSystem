@@ -2,7 +2,6 @@
 courses:
   - id : 1
     themeIds:
-      - 0
       - 1
       - 2
       - 3
@@ -12,8 +11,10 @@ courses:
       - 7
       - 8
       - 9
+      - 10
   - id: 2
     themeIds:
+      - 10
       - 9
       - 8
       - 7
@@ -23,7 +24,6 @@ courses:
       - 3
       - 2
       - 1
-      - 0
 themes:
   - id: 1
     name: "Spring"

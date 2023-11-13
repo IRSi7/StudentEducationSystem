@@ -38,4 +38,6 @@ build/
 .DS_Store
 /.idea/
 output.txt
-*.logs
+/learning-center-impl/logs/
+/logs/
+*.log
