@@ -3,8 +3,10 @@ package space.irsi7.repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import space.irsi7.exceptions.StudentNotFoundException;
 import space.irsi7.interfaces.repositories.StudentsRepository;
 import space.irsi7.mappers.StudentMapper;
 import space.irsi7.models.Student;
@@ -26,10 +28,10 @@ public class StudentsRepositoryImpl implements StudentsRepository {
     private final static String SQL_DELETE_STUDENT_BY_ID =
             "DELETE FROM students WHERE id = ?;";
     private final static String SQL_PUT_STUDENT =
-            "INSERT INTO students (name, course_id, group_id) VALUES (?,?,?);";
+            "INSERT INTO students (name, course_id, band_id) VALUES (?,?,?);";
 
     private final static String SQL_GET_ALL_STUDENTS =
-            "SELECT id, name, course_id, band_id, gpa FROM students";
+            "SELECT * FROM students";
 
     @Autowired
     public StudentsRepositoryImpl(DataSource dataSource, StudentMapper mapper){
@@ -38,13 +40,17 @@ public class StudentsRepositoryImpl implements StudentsRepository {
     }
 
     @Override
-    public Student getStudentById(int id) {
-        return mJdbcTemplate.queryForObject(
-                SQL_GET_STUDENT_BY_ID,
-                new Object[]{id},
-                new int[]{Types.INTEGER},
-                studentMapper
-        );
+    public Student getStudentById(int id) throws StudentNotFoundException {
+        try {
+             return mJdbcTemplate.queryForObject(
+                    SQL_GET_STUDENT_BY_ID,
+                    new Object[]{id},
+                    new int[]{Types.INTEGER},
+                    studentMapper
+            );
+        } catch (DataAccessException e){
+            throw new StudentNotFoundException(e);
+        }
     }
 
     @Override
@@ -56,20 +62,30 @@ public class StudentsRepositoryImpl implements StudentsRepository {
     }
 
     @Override
-    public void addStudent(String name, int course, int group) {
-        mJdbcTemplate.update(
+    public boolean addStudent(String name, int course, int group) {
+        try{
+            mJdbcTemplate.update(
                 SQL_PUT_STUDENT,
                 new Object[]{name, course, group},
                 new int[]{Types.VARCHAR, Types.INTEGER, Types.INTEGER}
         );
+        return true;
+        } catch (DataAccessException e) {
+            return false;
+        }
     }
 
     @Override
-    public void removeStudent(int id) {
-        mJdbcTemplate.update(
-                SQL_DELETE_STUDENT_BY_ID,
-                new Object[]{id},
-                new int[]{Types.INTEGER}
-        );
+    public boolean removeStudent(int id) {
+        try {
+            mJdbcTemplate.update(
+                    SQL_DELETE_STUDENT_BY_ID,
+                    new Object[]{id},
+                    new int[]{Types.INTEGER}
+            );
+            return true;
+        } catch (DataAccessException e) {
+            return false;
+        }
     }
 }

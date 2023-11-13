@@ -1,0 +1,9 @@
+DROP TABLE lnk_tests_questions;
+DROP TABLE marks;
+DROP TABLE tests;
+DROP TABLE questions;
+DROP TABLE themes;
+DROP TABLE students;
+DROP TABLE courses;
+DROP TABLE bands;
+DROP TABLE mentors;

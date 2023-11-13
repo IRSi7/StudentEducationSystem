@@ -1,0 +1,10 @@
+TRUNCATE TABLE lnk_courses_themes;
+TRUNCATE TABLE lnk_tests_questions;
+DELETE FROM marks;
+DELETE FROM tests;
+DELETE FROM questions;
+DELETE FROM themes;
+DELETE FROM students;
+DELETE FROM courses;
+DELETE FROM bands;
+DELETE FROM mentors;

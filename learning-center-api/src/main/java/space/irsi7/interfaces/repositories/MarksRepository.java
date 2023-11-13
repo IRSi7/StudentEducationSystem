@@ -10,9 +10,9 @@ public interface MarksRepository {
 
     Integer getMarksAmountByStudentId(int studentId);
 
-    void addMark(int studentId, int testId, int mark);
+    boolean addMark(int studentId, int testId, int mark);
 
-    int getGpa(int studentId);
+    Integer getGpa(int studentId);
 
     List<Mark> getAllMarks();
 }

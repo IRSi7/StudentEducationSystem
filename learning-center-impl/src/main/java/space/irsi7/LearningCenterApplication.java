@@ -9,7 +9,6 @@ import space.irsi7.models.Student;
 
 import java.util.Arrays;
 
-@EnableAspectJAutoProxy
 @SpringBootApplication
 public class LearningCenterApplication {
 
@@ -18,21 +17,21 @@ public class LearningCenterApplication {
             SpringApplication.run(LearningCenterApplication.class, args);
         }
 
-    @Bean
-    public Student studentBean(){
-        return new Student();
-    }
+//    @Bean
+//    public Student studentBean(){
+//        return new Student();
+//    }
 
-    @Bean
-    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-            return args -> {
-                System.out.println("Let's inspect the beans provided by Spring Boot:");
-
-                String[] beanNames = ctx.getBeanDefinitionNames();
-                Arrays.sort(beanNames);
-                for (String beanName : beanNames) {
-                    System.out.println(beanName);
-                }
-            };
-    }
+//    @Bean
+//    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+//            return args -> {
+//                System.out.println("Let's inspect the beans provided by Spring Boot:");
+//
+//                String[] beanNames = ctx.getBeanDefinitionNames();
+//                Arrays.sort(beanNames);
+//                for (String beanName : beanNames) {
+//                    System.out.println(beanName);
+//                }
+//            };
+//    }
 }

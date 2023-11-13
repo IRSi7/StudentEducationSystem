@@ -16,7 +16,7 @@ public class StudentMapper implements RowMapper<Student> {
                 rs.getInt("id"),
                 rs.getString("name"),
                 rs.getInt("course_id"),
-                rs.getInt("group_id")
+                rs.getInt("band_id")
         );
     }
 }

@@ -3,6 +3,7 @@ package space.irsi7.repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import space.irsi7.interfaces.repositories.MarksRepository;
@@ -54,16 +55,21 @@ public class MarksRepositoryImpl implements MarksRepository {
     }
 
     @Override
-    public void addMark(int studentId, int testId, int mark) {
-        mJdbcTemplate.update(
-                SQL_PUT_MARK,
-                new Object[]{studentId, testId, mark},
-                new int[]{Types.INTEGER, Types.INTEGER, Types.INTEGER}
-        );
+    public boolean addMark(int studentId, int testId, int mark) {
+        try {
+            mJdbcTemplate.update(
+                    SQL_PUT_MARK,
+                    new Object[]{studentId, testId, mark},
+                    new int[]{Types.INTEGER, Types.INTEGER, Types.INTEGER}
+            );
+            return true;
+        } catch (DataAccessException e) {
+            return false;
+        }
     }
 
     @Override
-    public int getGpa(int studentId) {
+    public Integer getGpa(int studentId) {
         List<Mark> marks = getMarksByStudentId(studentId);
         AtomicInteger answer = new AtomicInteger();
         marks.forEach(it -> answer.addAndGet(it.mark()));
